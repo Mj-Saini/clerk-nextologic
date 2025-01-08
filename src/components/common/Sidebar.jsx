@@ -13,9 +13,7 @@ const Sidebar = () => {
             <Link to={"dashboard"} className="flex items-center p-4 text-gray-900 font-medium bg-gray-200 rounded-l-lg">
               <span className="mr-3">👤</span> DashBoard
             </Link>
-            <Link to="/user-profile" className="flex items-center p-4  font-medium rounded-l-lg">
-              <span className="mr-3">👤</span> Profile
-            </Link>
+            
         
           </div>
         </nav>
