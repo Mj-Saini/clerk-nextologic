@@ -1,10 +1,9 @@
 "use client";
 
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import {  signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { auth, provider } from "./firebase";
+import { auth } from "./firebase";
 import { useNavigate } from "react-router-dom";
-import { GoogleAuthProviderIcon } from "./common/Icons";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
