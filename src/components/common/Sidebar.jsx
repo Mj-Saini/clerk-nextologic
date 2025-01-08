@@ -11,12 +11,19 @@ const Sidebar = () => {
       </div>
       <nav className="mt-6">
         <div>
-          <Link
+          {isAdminDashboard ? (
+            <Link
+              to={""}
+              className="flex items-center p-4 text-gray-900 font-medium bg-gray-200 rounded-l-lg capitalize"
+            >
+              <span className="mr-3">👤</span> DashBoard
+            </Link>
+          ):( <Link
             to={""}
             className="flex items-center p-4 text-gray-900 font-medium bg-gray-200 rounded-l-lg"
           >
             <span className="mr-3">👤</span> DashBoard
-          </Link>
+          </Link>)}
          
           <Link
             to={"trade-call"}
