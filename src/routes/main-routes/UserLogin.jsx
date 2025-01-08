@@ -65,7 +65,7 @@ const RedirectToSignIn = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/sign-in"); // Redirect to sign-in page
+    navigate("/sign-up"); // Redirect to sign-in page
   }, [navigate]);
 
   return null; // Return nothing since we just redirect

@@ -21,7 +21,7 @@ const DashboardTable = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleLogout = async () => {
@@ -37,88 +37,90 @@ const DashboardTable = () => {
 
   return (
     <div className="">
-      {location.pathname.endsWith("user-profile") ? (
+      {location.pathname.endsWith("/dashboard/user-profile") && (
         <div className="flex justify-center items-center h-screen w-full top-0 left-0 fixed">
           <div
             onClick={() => navigate("/dashboard")}
-            className="fixed top-0 left-0 h-full w-full bg-white flex justify-center items-center"
+            className="fixed top-0 left-0 h-full w-full bg-black/50 flex justify-center items-center"
           ></div>
           <div className="z-10">
             <Outlet />
           </div>
         </div>
-      ) : (
-        <div className="bg-gray-100 h-screen px-6">
-          <div className="flex justify-between mb-4 bg-white shadow p-5 ">
-            {isAdminDashboard ? (
-              <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
-            ) : (
-              <h2 className="text-2xl font-semibold ">User Dashboard</h2>
-            )}
-            <div className="relative">
-              <button
-                onClick={toggleDropdown}
-                className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
-              >
-                {/* <FaUserCircle size={24} /> */}
-                {isAdminDashboard ? (
-                  <span>Admin Profile</span>
-                ) : (
-                  <span>User Profile</span>
-                )}
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md">
-                  <ul className="py-1">
-                    {isAdminDashboard ? (
+      )}
+
+      <div className="bg-gray-100 h-screen px-6">
+        <div className="flex justify-between mb-4 bg-white shadow p-5 ">
+          {isAdminDashboard ? (
+            <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
+          ) : (
+            <h2 className="text-2xl font-semibold ">User Dashboard</h2>
+          )}
+          <div className="relative">
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
+            >
+              {/* <FaUserCircle size={24} /> */}
+              {isAdminDashboard ? (
+                <span>Admin Profile</span>
+              ) : (
+                <span>User Profile</span>
+              )}
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md">
+                <ul className="py-1">
+                  {isAdminDashboard ? (
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => {
+                        localStorage.clear();
+                        navigate("/admin-login");
+                      }}
+                    >
+                      Admin Logout
+                    </button>
+                  ) : (
+                    <>
+                      <Link
+                       onClick={toggleDropdown}
+                        to={`user-profile`}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        View Profile
+                      </Link>
                       <button
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => {
-                          localStorage.clear();
-                          navigate("/admin-login");
-                        }}
+                        onClick={handleLogout}
                       >
-                        Admin Logout
+                        Logout
                       </button>
-                    ) : (
-                      <>
-                        <Link
-                          to={`user-profile`}
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          View Profile
-                        </Link>
-                        <button
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                          onClick={handleLogout}
-                        >
-                          Logout
-                        </button>
-                      </>
-                    )}
-                  </ul>
-                </div>
-              )}
-            </div>
+                    </>
+                  )}
+                </ul>
+              </div>
+            )}
           </div>
-          {/* Action Buttons */}
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex gap-2">
-              <button className="bg-black text-white px-4 py-2 rounded shadow hover:bg-black">
-                Add Profile
-              </button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow hover:bg-gray-300">
-                Refresh
-              </button>
-            </div>
+        </div>
+        {/* Action Buttons */}
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex gap-2">
             <button className="bg-black text-white px-4 py-2 rounded shadow hover:bg-black">
-              Open Solo Window
+              Add Profile
+            </button>
+            <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow hover:bg-gray-300">
+              Refresh
             </button>
           </div>
+          <button className="bg-black text-white px-4 py-2 rounded shadow hover:bg-black">
+            Open Solo Window
+          </button>
+        </div>
 
-          {/* Table */}
-          <div className="bg-white rounded shadow-lg overflow-auto">
-            {/* <table className="min-w-full divide-y divide-gray-200">
+        {/* Table */}
+        <div className="bg-white rounded shadow-lg overflow-auto">
+          {/* <table className="min-w-full divide-y divide-gray-200">
     <thead className="bg-gray-50">
       <tr>
         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
@@ -176,9 +178,8 @@ const DashboardTable = () => {
       ))}
     </tbody>
   </table> */}
-          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
