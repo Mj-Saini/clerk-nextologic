@@ -43,7 +43,6 @@ const UserLogin = () => {
             <Route path="user-profile" element={<UserProfilePage />} />
           </Route>
           <Route path="trade-call" element={<TradeEntryTable />} />
-          
         </Route>
         <Route path="/sign-in" element={<SignInUser />}>
           <Route path="factor-one" element={<FactorOne />} />
