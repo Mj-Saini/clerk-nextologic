@@ -1,6 +1,6 @@
 import { useAuth } from "@clerk/clerk-react";
 import { useState } from "react";
-import { useNavigate, useLocation, Link, Outlet } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation, Outlet } from "react-router-dom"; // Import useLocation
 // const data = [
 //   {
 //     id: 1,
@@ -63,12 +63,25 @@ const DashboardTable = () => {
             >
               {/* <FaUserCircle size={24} /> */}
               {isAdminDashboard ? (
-                <span>Admin Profile</span>
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => {
+                    localStorage.clear();
+                    navigate("/admin-login");
+                  }}
+                >
+                  Logout
+                </button>
               ) : (
-                <span>User Profile</span>
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               )}
             </button>
-            {isDropdownOpen && (
+            {/* {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md">
                 <ul className="py-1">
                   {isAdminDashboard ? (
@@ -100,7 +113,7 @@ const DashboardTable = () => {
                   )}
                 </ul>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         {/* Action Buttons */}

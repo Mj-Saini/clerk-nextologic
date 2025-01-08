@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useClerk } from "@clerk/clerk-react"; 
+import { useClerk } from "@clerk/clerk-react";
 import SignInUser from "../../components/SignInUser";
 import SignUpUser from "../../components/common/SignUpUser";
 import VerifyEmailUser from "../../components/VerifyEmailUser";
@@ -34,12 +34,8 @@ const UserLogin = () => {
             </ProtectedRoute>
           }
         >
-          <Route path="/dashboard" element={<DashboardTable />} >
-          <Route
-          path="user-profile"
-          element={<UserProfilePage />}
-        />
-          
+          <Route path="/dashboard" element={<DashboardTable />}>
+            <Route path="user-profile" element={<UserProfilePage />} />
           </Route>
         </Route>
         <Route path="/sign-in" element={<SignInUser />}>

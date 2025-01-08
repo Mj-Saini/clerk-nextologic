@@ -13,8 +13,8 @@ const SignUpUser = () => {
       <SignUp
         path="/sign-up"
         routing="path"
-        redirectUrl="/dashboard"  // Primary redirect URL
-        afterSignUpUrl="/dashboard" // Fallback to ensure redirect to /dashboard
+        redirectUrl="/dashboard" 
+        afterSignUpUrl="/dashboard" 
       />
     </div>
   );
