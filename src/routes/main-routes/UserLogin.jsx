@@ -4,7 +4,7 @@
 
 import  { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useClerk } from "@clerk/clerk-react";  // Import Clerk's useClerk hook
+import { useClerk } from "@clerk/clerk-react";  
 import SignInUser from "../../components/SignInUser";
 import SignUpUser from "../../components/common/SignUpUser";
 import VerifyEmailUser from "../../components/VerifyEmailUser";
@@ -16,14 +16,15 @@ import AdminLogin from "../../components/AdminLogin";
 
 const UserLogin = () => {
   const navigate = useNavigate();
-  const { isSignedIn } = useClerk(); // Check if the user is signed in
+  const { isSignedIn } = useClerk(); 
 
   useEffect(() => {
-    // If the user is signed in, redirect to /dashboard
     if (isSignedIn) {
       navigate("/dashboard");
     }
   }, [isSignedIn, navigate]); 
+
+  const token = localStorage.getItem('token');
 
   return (
     <div>
@@ -45,7 +46,10 @@ const UserLogin = () => {
           <Route path="verify-email-address" element={<VerifyEmailUser />} />
         </Route>
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/admin-dashboard" element={<DashBoard />}>
+        <Route 
+          path="/admin-dashboard" 
+          element={token ? <DashBoard /> : <RedirectToSignIn />}
+        >
           <Route index element={<DashboardTable />} />
         </Route>
         <Route
