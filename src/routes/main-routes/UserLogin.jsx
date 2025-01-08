@@ -49,7 +49,6 @@ import SignUpUser from "../../components/common/SignUpUser";
 import VerifyEmailUser from "../../components/VerifyEmailUser";
 import DashBoard from "../../pages/main-web/DashBoard";
 import DashboardTable from "../../components/DashBoardTable";
-import LandingPage from "../../pages/main-web/LandingPage";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import FactorOne from '../../components/FectorOne';
 
@@ -62,12 +61,11 @@ const UserLogin = () => {
     if (isSignedIn) {
       navigate("/dashboard");
     }
-  }, [isSignedIn, navigate]); // Dependency array ensures it triggers when isSignedIn changes
+  }, [isSignedIn, navigate]); 
 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
         <Route
           path="/dashboard"
           element={
@@ -84,9 +82,30 @@ const UserLogin = () => {
         <Route path="/sign-up" element={<SignUpUser />}>
           <Route path="verify-email-address" element={<VerifyEmailUser />} />
         </Route>
+
+        <Route
+          path="*"
+          element={(
+            <RedirectToSignIn />
+          )}
+        />
+
       </Routes>
     </div>
   );
 };
 
+
+const RedirectToSignIn = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    navigate("/sign-in");  // Redirect to sign-in page
+  }, [navigate]);
+
+  return null; // Return nothing since we just redirect
+};
+
+
 export default UserLogin;
+
