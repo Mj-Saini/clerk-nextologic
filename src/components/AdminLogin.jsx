@@ -1,6 +1,6 @@
-"use client";
 
-import {  signInWithEmailAndPassword } from "firebase/auth";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "./firebase";
 import { useNavigate } from "react-router-dom";
@@ -29,26 +29,21 @@ const AdminLogin = () => {
     const { email, password } = formData;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      // Sign in the user
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log(user,"user");
+
+      const tokenResult = user.accessToken;
+      localStorage.setItem("token",JSON.stringify(tokenResult))
+   
       navigate("/admin-dashboard");
+
     } catch (err) {
       setError(err.message);
       console.error("Login Error:", err.message);
     }
   };
-
-  // const handleGoogleSignUp = async () => {
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
-
-  //     console.log("Google User:", user);
-  //     navigate("/admin-dashboard");
-  //   } catch (error) {
-  //     setError(error.message);
-  //     console.error("Google Sign-Up Error:", error.message);
-  //   }
-  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-5">
@@ -112,24 +107,6 @@ const AdminLogin = () => {
             {error}
           </div>
         )}
-
-        {/* <div
-          onClick={handleGoogleSignUp}
-          className="flex justify-center items-center gap-2 px-3 py-2 mt-5 cursor-pointer"
-        >
-          <GoogleAuthProviderIcon /> continue as google
-        </div> */}
-
-        {/* Link to Sign-Up Page */}
-         {/*<p className="text-sm text-center text-gray-500 mt-6">
-          Don’t have an account?{" "}
-          <a
-            href="/admin-signup"
-            className="text-black hover:underline focus:outline-none"
-          >
-            Sign up here
-          </a> 
-        </p>*/}
       </div>
     </div>
   );

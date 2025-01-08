@@ -1,65 +1,84 @@
 import { useAuth } from "@clerk/clerk-react";
-import  { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 const data = [
-    {
-      id: 1,
-      profile: "Female",
-      memberID: "F123456",
-      nameTag: "Thomas Miranda",
-      age: "29",
-      city: "New York",
-      status: "Active",
-      lastUpdate: "2025-01-06 13:45",
-    },
-  ];
+  {
+    id: 1,
+    profile: "Female",
+    memberID: "F123456",
+    nameTag: "Thomas Miranda",
+    age: "29",
+    city: "New York",
+    status: "Active",
+    lastUpdate: "2025-01-06 13:45",
+  },
+];
+
 const DashboardTable = () => {
-  const navigate=useNavigate()
-  const { signOut } = useAuth(); 
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const location = useLocation(); // Get the current route
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+
   const handleLogout = async () => {
     try {
       await signOut(); // Clerk's logout method
       alert("Logged out successfully");
-      navigate("/sign-in")
+      navigate("/sign-in");
     } catch (error) {
       console.error("Error during logout:", error);
     }
   };
+  const isAdminDashboard = location.pathname === "/admin-dashboard";
 
   return (
     <div className="bg-gray-100 h-screen px-6">
-      <div className="flex justify-end mb-4 bg-white shadow p-5 ">
+      <div className="flex justify-between mb-4 bg-white shadow p-5 ">
+        {isAdminDashboard ? (<h2 className="text-2xl font-semibold ">Admin Dashboard</h2>):(<h2 className="text-2xl font-semibold ">User Dashboard</h2>)}
         <div className="relative">
           <button
             onClick={toggleDropdown}
             className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
           >
             {/* <FaUserCircle size={24} /> */}
-            <span>User Profile</span>
+            {isAdminDashboard ? (
+              <span>Admin Profile</span>
+            ) : (
+              <span>User Profile</span>
+            )}
           </button>
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md">
               <ul className="py-1">
-                <li>
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => alert("View Profile clicked")}
+                >
+                  View Profile
+                </button>
+
+                {isAdminDashboard ? (
                   <button
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => alert("View Profile clicked")}
+                    onClick={() => {
+                      localStorage.clear();
+                      navigate("/admin-login");
+                    }}
                   >
-                    View Profile
+                    Admin Logout
                   </button>
-                </li>
-                <li>
+                ) : (
                   <button
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={handleLogout}
                   >
                     Logout
                   </button>
-                </li>
+                )}
               </ul>
             </div>
           )}
@@ -130,7 +149,9 @@ const DashboardTable = () => {
                     {item.status}
                   </span>
                 </td>
-                <td className="px-4 py-2 whitespace-nowrap">{item.lastUpdate}</td>
+                <td className="px-4 py-2 whitespace-nowrap">
+                  {item.lastUpdate}
+                </td>
                 <td className="px-4 py-2 whitespace-nowrap">
                   <button className="text-black hover:underline">Delete</button>
                 </td>
@@ -139,8 +160,6 @@ const DashboardTable = () => {
           </tbody>
         </table>
       </div>
-
-    
     </div>
   );
 };
