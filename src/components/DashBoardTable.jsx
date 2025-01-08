@@ -1,6 +1,6 @@
 import { useAuth } from "@clerk/clerk-react";
 import { useState } from "react";
-import { useNavigate, useLocation, Outlet } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation, Outlet, Link } from "react-router-dom"; // Import useLocation
 // const data = [
 //   {
 //     id: 1,
@@ -73,12 +73,21 @@ const DashboardTable = () => {
                   Logout
                 </button>
               ) : (
-                <button
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
+                <>
+                  <Link
+                    onClick={toggleDropdown}
+                    to={`user-profile`}
+                    className="block w-full text-center whitespace-nowrap px-4 py-2 text-base text-gray-700 hover:bg-gray-100"
+                  >
+                    View Profile
+                  </Link>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-base text-gray-700 hover:bg-gray-100"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </>
               )}
             </button>
             {/* {isDropdownOpen && (
