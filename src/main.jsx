@@ -8,7 +8,6 @@ import { BrowserRouter } from "react-router-dom";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      {" "}
       <ClerkProvider
         publishableKey={"pk_test_Z3Jvd24tcGlnLTM0LmNsZXJrLmFjY291bnRzLmRldiQ"}
        
