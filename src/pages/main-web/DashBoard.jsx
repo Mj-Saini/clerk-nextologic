@@ -32,12 +32,12 @@ const DashBoard = () => {
   return (
     <>
       <div className="min-h-screen bg-gray-900 flex justify-center">
-        <div className="bg-white shadow-lg rounded-lg w-full flex">
+        <div className="bg-white shadow-lg w-full flex">
           <div className="w-1/5 sticky top-0">
             <Sidebar />
           </div>
           {/* Main Content */}
-          <div className="w-4/5 px-6">
+          <div className="w-4/5 px-6 pb-5">
             <div className="flex justify-between items-center mb-4 bg-white shadow p-5 sticky top-0">
               {isAdminDashboard ? (
                 <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
