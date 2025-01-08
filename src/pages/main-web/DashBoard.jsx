@@ -38,7 +38,7 @@ const DashBoard = () => {
           </div>
           {/* Main Content */}
           <div className="w-4/5 px-6">
-            <div className="flex justify-between items-center mb-4 bg-white shadow p-5 ">
+            <div className="flex justify-between items-center mb-4 bg-white shadow p-5 sticky top-0">
               {isAdminDashboard ? (
                 <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
               ) : (

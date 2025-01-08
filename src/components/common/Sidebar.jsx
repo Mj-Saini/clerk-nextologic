@@ -4,8 +4,8 @@ const Sidebar = () => {
   const location = useLocation();
   const isAdminDashboard = location.pathname.startsWith("/admin-dashboard")
   return (
-    <>
-      <div className="p-6 top-0 sticky">
+    <div className="top-0 sticky">
+      <div className="p-6">
         <h2 className="text-lg font-semibold">Account</h2>
         <p className="text-sm text-gray-600">Manage your account info.</p>
       </div>
@@ -41,7 +41,7 @@ const Sidebar = () => {
           )}
         </div>
       </nav>
-    </>
+    </div>
   );
 };
 
