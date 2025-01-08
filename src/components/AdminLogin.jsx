@@ -109,7 +109,7 @@ const AdminLogin = () => {
 
         {/* Error Display */}
         {error && (
-          <div className="bg-gray-100 text-gray-700 p-3 rounded mb-4 text-sm">
+          <div className="text-[red] p-3 rounded mb-4 text-sm text-center">
             {error}
           </div>
         )}
@@ -122,15 +122,15 @@ const AdminLogin = () => {
         </div>
 
         {/* Link to Sign-Up Page */}
-        <p className="text-sm text-center text-gray-500 mt-6">
+         {/*<p className="text-sm text-center text-gray-500 mt-6">
           Don’t have an account?{" "}
           <a
             href="/admin-signup"
             className="text-black hover:underline focus:outline-none"
           >
             Sign up here
-          </a>
-        </p>
+          </a> 
+        </p>*/}
       </div>
     </div>
   );

@@ -145,7 +145,7 @@ const AdminSignUp = () => {
           </button>
         </form>
         {error && (
-            <div className="bg-gray-100 text-gray-700 p-3 rounded mb-4 text-sm">
+            <div className="text-[red] p-3 rounded mb-4 text-sm text-center">
               {error}
             </div>
           )}
