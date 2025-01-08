@@ -1,4 +1,49 @@
-import { Route, Routes } from "react-router-dom";
+// import { Route, Routes } from "react-router-dom";
+// import SignInUser from "../../components/SignInUser";
+// import SignUpUser from "../../components/common/SignUpUser";
+// import VerifyEmailUser from "../../components/VerifyEmailUser";
+// import DashBoard from "../../pages/main-web/DashBoard";
+// import DashboardTable from "../../components/DashBoardTable";
+// import LandingPage from "../../pages/main-web/LandingPage";
+// import ProtectedRoute from "../../components/ProtectedRoute";
+// import FactorOne from "../../components/FectorOne";
+
+// const UserLogin = () => {
+//   return (
+//     <div>
+//       <Routes>
+//         <Route path="/" element={<LandingPage />} />
+//         <Route
+//           path="/dashboard"
+//           element={
+//             <ProtectedRoute>
+//               <DashBoard />
+//             </ProtectedRoute>
+//           }
+//         >
+//           <Route index element={<DashboardTable />} />
+//         </Route>
+//         <Route path="/sign-in" element={<SignInUser />} >
+//         <Route path="factor-one" element={<FactorOne />} />
+        
+//         </Route>
+//         <Route path="/sign-up" element={<SignUpUser />}>
+//           <Route path="verify-email-address" element={<VerifyEmailUser />} />
+//         </Route>
+//       </Routes>
+//     </div>
+//   );
+// };
+
+// export default UserLogin;
+
+
+
+
+
+import  { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useClerk } from "@clerk/clerk-react";  // Import Clerk's useClerk hook
 import SignInUser from "../../components/SignInUser";
 import SignUpUser from "../../components/common/SignUpUser";
 import VerifyEmailUser from "../../components/VerifyEmailUser";
@@ -6,9 +51,19 @@ import DashBoard from "../../pages/main-web/DashBoard";
 import DashboardTable from "../../components/DashBoardTable";
 import LandingPage from "../../pages/main-web/LandingPage";
 import ProtectedRoute from "../../components/ProtectedRoute";
-import FactorOne from "../../components/FectorOne";
+import FactorOne from '../../components/FectorOne';
 
 const UserLogin = () => {
+  const navigate = useNavigate();
+  const { isSignedIn } = useClerk(); // Check if the user is signed in
+
+  useEffect(() => {
+    // If the user is signed in, redirect to /dashboard
+    if (isSignedIn) {
+      navigate("/dashboard");
+    }
+  }, [isSignedIn, navigate]); // Dependency array ensures it triggers when isSignedIn changes
+
   return (
     <div>
       <Routes>
@@ -23,9 +78,8 @@ const UserLogin = () => {
         >
           <Route index element={<DashboardTable />} />
         </Route>
-        <Route path="/sign-in" element={<SignInUser />} >
-        <Route path="factor-one" element={<FactorOne />} />
-        
+        <Route path="/sign-in" element={<SignInUser />}>
+          <Route path="factor-one" element={<FactorOne />} />
         </Route>
         <Route path="/sign-up" element={<SignUpUser />}>
           <Route path="verify-email-address" element={<VerifyEmailUser />} />
@@ -36,6 +90,3 @@ const UserLogin = () => {
 };
 
 export default UserLogin;
-
-
-
