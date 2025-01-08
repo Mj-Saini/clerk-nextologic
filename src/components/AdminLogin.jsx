@@ -38,18 +38,18 @@ const AdminLogin = () => {
     }
   };
 
-  const handleGoogleSignUp = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+  // const handleGoogleSignUp = async () => {
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
 
-      console.log("Google User:", user);
-      navigate("/admin-dashboard");
-    } catch (error) {
-      setError(error.message);
-      console.error("Google Sign-Up Error:", error.message);
-    }
-  };
+  //     console.log("Google User:", user);
+  //     navigate("/admin-dashboard");
+  //   } catch (error) {
+  //     setError(error.message);
+  //     console.error("Google Sign-Up Error:", error.message);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-5">
@@ -114,12 +114,12 @@ const AdminLogin = () => {
           </div>
         )}
 
-        <div
+        {/* <div
           onClick={handleGoogleSignUp}
           className="flex justify-center items-center gap-2 px-3 py-2 mt-5 cursor-pointer"
         >
           <GoogleAuthProviderIcon /> continue as google
-        </div>
+        </div> */}
 
         {/* Link to Sign-Up Page */}
          {/*<p className="text-sm text-center text-gray-500 mt-6">
