@@ -31,7 +31,7 @@ const AdminLogin = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      navigate("/admin-dashboard");
     } catch (err) {
       setError(err.message);
       console.error("Login Error:", err.message);
@@ -44,7 +44,7 @@ const AdminLogin = () => {
       const user = result.user;
 
       console.log("Google User:", user);
-      navigate("/dashboard");
+      navigate("/admin-dashboard");
     } catch (error) {
       setError(error.message);
       console.error("Google Sign-Up Error:", error.message);
