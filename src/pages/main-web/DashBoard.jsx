@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/common/Sidebar";
 import {
   BillingIcon,
-  NotificationIcon,
   SignOutIcon,
   UserIcon,
   UserProfileIcon,
@@ -47,11 +47,8 @@ const DashBoard = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleOfferButtonClick = () => {
-  
-    setUpdateCount(0);
-  };
-  const isAdminDashboard = location.pathname === "/admin-dashboard";
+ 
+  const isAdminDashboard = location.pathname.startsWith("/admin-dashboard");
   return (
     <>
       <div className="min-h-screen bg-gray-900 flex justify-center">
@@ -72,7 +69,7 @@ const DashBoard = () => {
                  
                   className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
                 >
-                  {/* <FaUserCircle size={24} /> */}
+               
                   {isAdminDashboard ? (
                     <button
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -88,17 +85,7 @@ const DashBoard = () => {
                       <button className="block w-full whitespace-nowrap px-4 bg-gray-200 py-2 text-base text-[black] rounded-md font-medium relative">
                         CHRISTMAS OFFER
                       </button>
-                      <button
-                        onClick={handleOfferButtonClick}
-                        className="block w-full whitespace-nowrap px-4  text-base text-[black] rounded-md font-medium relative"
-                      >
-                        <NotificationIcon />
-                        {updateCount > 0 && (
-                          <span className="absolute -top-2 right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
-                            {updateCount}
-                          </span>
-                        )}
-                      </button>
+                      
                       <button
                         onClick={toggleDropdown}
                         className="block w-full text-center whitespace-nowrap ps-4 py-2 text-base text-gray-700 "

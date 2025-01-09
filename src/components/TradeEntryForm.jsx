@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { realtimeDb } from './firebase';
 import { push,set, ref } from 'firebase/database';
+import CustomToast from './CustomToast';
 
 const TradeEntryForm = () => {
   const [formData, setFormData] = useState({
@@ -23,14 +24,7 @@ const TradeEntryForm = () => {
     });
   };
 
-  // const saveDataToFirestore = async (data) => {
-  //   try {
-  //     const docRef = await addDoc(collection(db, "trades"), data);
-  //     console.log("Document written with ID: ", docRef.id);
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
-  //   }
-  // };
+
 
   const saveDataToRealtimeDB = async (data) => {
     try {
@@ -58,10 +52,29 @@ const TradeEntryForm = () => {
         target4: '',
          comment: '',
       })
+      showToast()
   };
+
+
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
+  const showToast = () => {
+    setIsToastVisible(true);
+  };
+
+  const hideToast = () => {
+    setIsToastVisible(false);
+  };
+
+  
 
   return (
     <div className="w-full md:w-1/2 mx-auto p-4 bg-white shadow-md rounded-md">
+      <CustomToast
+        message={"trades call has a new entry"}
+        show={isToastVisible}
+        onClose={hideToast}
+      />
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="symbol">
@@ -85,6 +98,7 @@ const TradeEntryForm = () => {
             Date & Time
           </label>
           <input
+          required
             type="datetime-local"
             id="dateTime"
             name="dateTime"
@@ -100,6 +114,7 @@ const TradeEntryForm = () => {
               Entry Price From
             </label>
             <input
+            required
               type="text"
               id="entryPriceFrom"
               name="entryPriceFrom"
@@ -113,6 +128,7 @@ const TradeEntryForm = () => {
               Entry Price To
             </label>
             <input
+            required
               type="text"
               id="entryPriceTo"
               name="entryPriceTo"
@@ -128,6 +144,7 @@ const TradeEntryForm = () => {
             Stop Loss
           </label>
           <input
+          required
             type="text"
             id="stopLoss"
             name="stopLoss"
@@ -143,6 +160,7 @@ const TradeEntryForm = () => {
               Target {target}
             </label>
             <input
+            required
               type="text"
               id={`target${target}`}
               name={`target${target}`}
