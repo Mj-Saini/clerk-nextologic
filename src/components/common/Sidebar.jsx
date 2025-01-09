@@ -20,6 +20,12 @@ const Sidebar = () => {
                 <span className="mr-3">👤</span> DashBoard
               </Link>
               <Link
+                to={"trade-call"}
+                className="flex items-center px-4 py-3 text-gray-900 font-medium bg-gray-200 rounded-lg no-underline capitalize"
+              >
+                <span className="mr-3">👤</span> trade call
+              </Link>
+              <Link
                 to={"trade-call-form"}
                 className="flex items-center px-4 py-3 text-gray-900 font-medium bg-gray-200 rounded-lg no-underline capitalize"
               >
