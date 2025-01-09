@@ -47,6 +47,12 @@ const Sidebar = () => {
                 <span className="mr-3">👤</span> settings
               </Link>
               <Link
+                to={"detto-settings"}
+                className="flex items-center px-4 py-3 text-gray-900 font-medium bg-gray-200 rounded-lg no-underline capitalize"
+              >
+                <span className="mr-3">👤</span> ditto settings
+              </Link>
+              <Link
                 to={"pricing"}
                 className="flex items-center px-4 py-3 text-gray-900 font-medium bg-gray-200 rounded-lg no-underline capitalize"
               >

@@ -19,6 +19,7 @@ import CustomToast from "../../components/CustomToast";
 import Settings from "../../components/Settings";
 import PricePlan from "../../components/PricePlan";
 import PriceSettings from "../../components/PriceSettings";
+import DittoSettings from "../../components/DittoSettings";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ const UserLogin = () => {
           <Route path="billing" element={<Billing />} />
           <Route path="trade-call" element={<TradeEntryTable />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="detto-settings" element={<DittoSettings />} />
           <Route path="pricing" element={<PricePlan />}>
             <Route path="price" element={<PriceSettings />} />
           </Route>
