@@ -1,6 +1,6 @@
-import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
-import { db } from './firebase';
+import { realtimeDb } from './firebase';
+import { push,set, ref } from 'firebase/database';
 
 const TradeEntryForm = () => {
   const [formData, setFormData] = useState({
@@ -23,19 +23,29 @@ const TradeEntryForm = () => {
     });
   };
 
-  const saveDataToFirestore = async (data) => {
+  // const saveDataToFirestore = async (data) => {
+  //   try {
+  //     const docRef = await addDoc(collection(db, "trades"), data);
+  //     console.log("Document written with ID: ", docRef.id);
+  //   } catch (e) {
+  //     console.error("Error adding document: ", e);
+  //   }
+  // };
+
+  const saveDataToRealtimeDB = async (data) => {
     try {
-      const docRef = await addDoc(collection(db, "trades"), data);
-      console.log("Document written with ID: ", docRef.id);
+      const newTradeRef = push(ref(realtimeDb, "trades")); // Generate a unique key under "trades"
+      await set(newTradeRef, data); // Save data to the generated reference
+      console.log("Data saved to Realtime Database with key:", newTradeRef.key);
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("Error saving data to Realtime Database: ", e);
     }
   };
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(formData);
-    await saveDataToFirestore(formData);
+    await saveDataToRealtimeDB(formData);
     setFormData({
         symbol: 'XAUUSD',
         dateTime: '',
@@ -168,3 +178,4 @@ const TradeEntryForm = () => {
 };
 
 export default TradeEntryForm;
+

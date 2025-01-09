@@ -2,18 +2,21 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/common/Sidebar";
 import {
   BillingIcon,
+  NotificationIcon,
   SignOutIcon,
   UserIcon,
   UserProfileIcon,
 } from "../../components/common/Icons";
 import { useAuth } from "@clerk/clerk-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 const DashBoard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [updateCount, setUpdateCount] = useState(0);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -27,6 +30,26 @@ const DashBoard = () => {
     } catch (error) {
       console.error("Error during logout:", error);
     }
+  };
+
+  useEffect(() => {
+    const db = getDatabase();
+    const updatesRef = ref(db, "trades"); 
+
+    const unsubscribe = onValue(updatesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const updates = snapshot.val();
+        const count = Object.keys(updates).length; 
+        setUpdateCount(count);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleOfferButtonClick = () => {
+  
+    setUpdateCount(0);
   };
   const isAdminDashboard = location.pathname === "/admin-dashboard";
   return (
@@ -45,8 +68,8 @@ const DashBoard = () => {
                 <h2 className="text-2xl font-semibold ">User Dashboard</h2>
               )}
               <div className="relative">
-                <button
-                  onClick={toggleDropdown}
+                <div
+                 
                   className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
                 >
                   {/* <FaUserCircle size={24} /> */}
@@ -62,8 +85,19 @@ const DashBoard = () => {
                     </button>
                   ) : (
                     <>
-                      <button className="block w-full whitespace-nowrap px-4 bg-gray-200 py-2 text-base text-[black] rounded-md font-medium">
-                        CHRISMASH OFFER
+                      <button className="block w-full whitespace-nowrap px-4 bg-gray-200 py-2 text-base text-[black] rounded-md font-medium relative">
+                        CHRISTMAS OFFER
+                      </button>
+                      <button
+                        onClick={handleOfferButtonClick}
+                        className="block w-full whitespace-nowrap px-4  text-base text-[black] rounded-md font-medium relative"
+                      >
+                        <NotificationIcon />
+                        {updateCount > 0 && (
+                          <span className="absolute -top-2 right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
+                            {updateCount}
+                          </span>
+                        )}
                       </button>
                       <button
                         onClick={toggleDropdown}
@@ -73,7 +107,7 @@ const DashBoard = () => {
                       </button>
                     </>
                   )}
-                </button>
+                </div>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-6 w-56 bg-white border border-gray-200 rounded-lg shadow-md">
                     <ul className="">

@@ -102,12 +102,27 @@ export const GoBackIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
-  height="24"
+      height="24"
       viewBox="0 0 2048 2048"
     >
       <path
         fill="currentColor"
         d="M2048 1088H250l787 787l-90 90L6 1024L947 83l90 90l-787 787h1798z"
+      />
+    </svg>
+  );
+};
+export const NotificationIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18m11-9c0 6.075-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1s11 4.925 11 11m-9.268 5a2 2 0 0 1-3.464 0H6v-2.736l1-2V10a5 5 0 0 1 10 0v2.264l1 2V17zM8 15h8v-.264l-1-2V10a3 3 0 1 0-6 0v2.736l-1 2z"
       />
     </svg>
   );

@@ -1,19 +1,28 @@
 import { useState, useEffect } from 'react';
-import { db } from './firebase'; // Adjust the import path as needed
-import { collection, getDocs } from 'firebase/firestore';
+import {  realtimeDb } from './firebase'; 
+import { onValue, ref } from 'firebase/database';
 
 const TradeEntryTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'trades')); // 'tradeEntries' is the Firestore collection name
-        const tradeData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-        setData(tradeData);
-      } catch (error) {
-        console.error("Error fetching data from Firestore: ", error);
-      }
+    const fetchData = () => {
+      const tradesRef = ref(realtimeDb, 'trades');
+
+      onValue(tradesRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const tradeData = Object.entries(snapshot.val()).map(([id, value]) => ({
+            id,
+            ...value, 
+          }));
+          setData(tradeData);
+        } else {
+          console.log("No data available");
+          setData([]);
+        }
+      }, (error) => {
+        console.error("Error fetching data from Realtime Database: ", error);
+      });
     };
 
     fetchData();
@@ -21,10 +30,10 @@ const TradeEntryTable = () => {
 
   const formatDate = (dateTime) => {
     const date = new Date(dateTime);
-    return date.toString().split('T')[0]; // This will return the date part in "YYYY-MM-DD" format
+    return date.toString().split('T')[0]; 
   };
 
-  console.log(data,"tradeEntries")
+  console.log(data, "tradeEntries");
 
   return (
     <div className="overflow-x-auto mt-5">
