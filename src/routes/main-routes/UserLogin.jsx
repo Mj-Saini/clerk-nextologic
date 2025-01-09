@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useClerk } from "@clerk/clerk-react";
 import SignInUser from "../../components/SignInUser";
@@ -15,6 +15,7 @@ import Billing from "../../components/Billing";
 import Wappalyzer from "../../components/Wappalyzer";
 import TradeEntryForm from "../../components/TradeEntryForm";
 import TradeEntryTable from "../../components/TradeEntryTable";
+import CustomToast from "../../components/CustomToast";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -28,8 +29,23 @@ const UserLogin = () => {
 
   const token = localStorage.getItem("token");
 
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
+  const showToast = () => {
+    setIsToastVisible(true);
+  };
+
+  const hideToast = () => {
+    setIsToastVisible(false);
+  };
+
   return (
     <div>
+      <CustomToast
+        message={"trades call has a new entry"}
+        show={isToastVisible}
+        onClose={hideToast}
+      />
       <Routes>
         <Route
           path="/dashboard"
@@ -57,7 +73,7 @@ const UserLogin = () => {
         >
           <Route index element={<DashboardTable />} />
           <Route path="trade-call" element={<TradeEntryTable />} />
-          <Route path="trade-call-form" element={<TradeEntryForm />} />
+          <Route path="trade-call-form" element={<TradeEntryForm showToast={showToast}/>} />
         </Route>
         <Route path="/broker" element={<NewForm />} />
         <Route path="/billing" element={<Billing />} />

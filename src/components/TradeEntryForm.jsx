@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { realtimeDb } from './firebase';
 import { push,set, ref } from 'firebase/database';
-import CustomToast from './CustomToast';
 
-const TradeEntryForm = () => {
+const TradeEntryForm = ({showToast}) => {
   const [formData, setFormData] = useState({
     symbol: 'XAUUSD',
     dateTime: '',
@@ -56,25 +56,12 @@ const TradeEntryForm = () => {
   };
 
 
-  const [isToastVisible, setIsToastVisible] = useState(false);
-
-  const showToast = () => {
-    setIsToastVisible(true);
-  };
-
-  const hideToast = () => {
-    setIsToastVisible(false);
-  };
-
+ 
   
 
   return (
     <div className="w-full md:w-1/2 mx-auto p-4 bg-white shadow-md rounded-md">
-      <CustomToast
-        message={"trades call has a new entry"}
-        show={isToastVisible}
-        onClose={hideToast}
-      />
+      
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="symbol">
