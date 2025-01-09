@@ -18,6 +18,7 @@ import TradeEntryTable from "../../components/TradeEntryTable";
 import CustomToast from "../../components/CustomToast";
 import Settings from "../../components/Settings";
 import PricePlan from "../../components/PricePlan";
+import PriceSettings from "../../components/PriceSettings";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -63,7 +64,9 @@ const UserLogin = () => {
           <Route path="billing" element={<Billing />} />
           <Route path="trade-call" element={<TradeEntryTable />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="pricing" element={<PricePlan />} />
+          <Route path="pricing" element={<PricePlan />}>
+            <Route path="price" element={<PriceSettings />} />
+          </Route>
         </Route>
         <Route path="/sign-in" element={<SignInUser />}>
           <Route path="factor-one" element={<FactorOne />} />

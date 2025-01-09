@@ -1,9 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 const PricePlan = () => {
+  const location = useLocation();
+
+
+
   return (
-    <div className="container mt-4">
-      {/* Header Section */}
+    <div className="mt-4">
+    {location.pathname === "/dashboard/pricing/price"?"":
+      <div>
       <div className="text-center mb-4">
         <h5>Brokers Available in 1Cliq</h5>
         <div className="d-flex flex-wrap justify-content-center mt-2">
@@ -39,7 +45,7 @@ const PricePlan = () => {
       </div>
 
       <div className="row">
-        <div className="col-md-6 mb-4 z-0">
+        <div className="col-md-6 mb-4">
           <div className="card text-center h-100 flex flex-col justify-between">
             <div className="">
               <div className="card-header bg-white">
@@ -67,9 +73,9 @@ const PricePlan = () => {
                 </ul>
               </div>
             </div>
-            <button className="btn !bg-gray-200 btn-lg mb-3 mx-3">
+            <Link to={"price"} className="btn !bg-gray-200 btn-lg mb-3 mx-3">
               SUBSCRIBE
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -113,19 +119,19 @@ const PricePlan = () => {
       <div className="text-center mt-4 border-b pb-3">
         <h5>Disclaimer</h5>
         <small className="text-muted">
-          Although information has been obtained from and is based upon sources
-          we believe to be reliable, we do not guarantee its accuracy and the
-          information may be incomplete or condensed. All opinions and estimates
-          constitute our judgment as of the date of the report and are subject
-          to change without notice.
+          Although information has been obtained from and is based upon
+          sources we believe to be reliable, we do not guarantee its accuracy
+          and the information may be incomplete or condensed. All opinions and
+          estimates constitute our judgment as of the date of the report and
+          are subject to change without notice.
         </small>
       </div>
       <div className="text-center mt-4 border-b pb-3">
         <h5>Note</h5>
         <small>
-          We are not SEBI Registered Advisor and We are NOT responsible for your
-          trading profits/losses if you use our charts and data for trading.
-          Please consult your investment advisor.
+          We are not SEBI Registered Advisor and We are NOT responsible for
+          your trading profits/losses if you use our charts and data for
+          trading. Please consult your investment advisor.
         </small>
         <br />
         <small className="text-muted">
@@ -135,6 +141,8 @@ const PricePlan = () => {
         <br />
         <small>All Plans are under 18% GST.</small>
       </div>
+    </div>}
+      <Outlet />
     </div>
   );
 };
