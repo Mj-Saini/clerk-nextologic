@@ -31,6 +31,12 @@ const Sidebar = () => {
               >
                 <span className="mr-3">👤</span> trade call form
               </Link>
+              <Link
+                to={"add-symbol"}
+                className="flex items-center px-4 py-3 text-gray-900 font-medium bg-gray-200 rounded-lg no-underline capitalize"
+              >
+                <span className="mr-3">👤</span> add symbol
+              </Link>
             </>
           ) : (
             <>
