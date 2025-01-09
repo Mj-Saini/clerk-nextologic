@@ -2,7 +2,7 @@ import { UserProfile } from "@clerk/clerk-react";
 
 const UserProfilePage = () => {
   return (
-    <div>
+    <div className="">
       <UserProfile />
     </div>
   );

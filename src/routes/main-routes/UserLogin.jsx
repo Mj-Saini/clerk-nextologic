@@ -16,6 +16,8 @@ import Wappalyzer from "../../components/Wappalyzer";
 import TradeEntryForm from "../../components/TradeEntryForm";
 import TradeEntryTable from "../../components/TradeEntryTable";
 import CustomToast from "../../components/CustomToast";
+import Settings from "../../components/Settings";
+import PricePlan from "../../components/PricePlan";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -58,7 +60,10 @@ const UserLogin = () => {
           <Route path="/dashboard" element={<DashboardTable />}>
             <Route path="user-profile" element={<UserProfilePage />} />
           </Route>
+          <Route path="billing" element={<Billing />} />
           <Route path="trade-call" element={<TradeEntryTable />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="pricing" element={<PricePlan />} />
         </Route>
         <Route path="/sign-in" element={<SignInUser />}>
           <Route path="factor-one" element={<FactorOne />} />
@@ -73,10 +78,12 @@ const UserLogin = () => {
         >
           <Route index element={<DashboardTable />} />
           <Route path="trade-call" element={<TradeEntryTable />} />
-          <Route path="trade-call-form" element={<TradeEntryForm showToast={showToast}/>} />
+          <Route
+            path="trade-call-form"
+            element={<TradeEntryForm showToast={showToast} />}
+          />
         </Route>
         <Route path="/broker" element={<NewForm />} />
-        <Route path="/billing" element={<Billing />} />
         <Route path="/wappalyzer" element={<Wappalyzer />} />
         <Route path="*" element={<RedirectToSignIn />} />
       </Routes>

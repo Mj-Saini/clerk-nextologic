@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 
-const NewForm = () => {
+const NewForm = ({setAddBroker}) => {
   // State to manage form inputs
   const [formData, setFormData] = useState({
     broker: '',
@@ -30,8 +31,8 @@ const NewForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6">
+    <>
+      <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 z-10">
         <h2 className="text-xl font-semibold text-gray-700 mb-4">
           Add broker API details
         </h2>
@@ -149,6 +150,7 @@ const NewForm = () => {
             </button>
             <button
               type="button"
+              onClick={()=>setAddBroker(false)}
               className="w-1/2 ml-2 px-4 py-2 bg-gray-400 text-white text-sm font-medium rounded-lg shadow hover:bg-gray-500 focus:outline-none"
             >
               CANCEL
@@ -156,7 +158,7 @@ const NewForm = () => {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 }
 

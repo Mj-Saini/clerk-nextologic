@@ -1,20 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
-import { realtimeDb } from './firebase';
-import { push,set, ref } from 'firebase/database';
+import { useState } from "react";
+import { realtimeDb } from "./firebase";
+import { push, set, ref } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
-const TradeEntryForm = ({showToast}) => {
+const TradeEntryForm = ({ showToast }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    symbol: 'XAUUSD',
-    dateTime: '',
-    entryPriceFrom: '',
-    entryPriceTo: '',
-    stopLoss: '',
-    target1: '',
-    target2: '',
-    target3: '',
-    target4: '',
-     comment: '',
+    symbol: "XAUUSD",
+    dateTime: "",
+    entryPriceFrom: "",
+    entryPriceTo: "",
+    stopLoss: "",
+    target1: "",
+    target2: "",
+    target3: "",
+    target4: "",
+    comment: "",
   });
 
   const handleChange = (e) => {
@@ -23,8 +25,6 @@ const TradeEntryForm = ({showToast}) => {
       [e.target.name]: e.target.value,
     });
   };
-
-
 
   const saveDataToRealtimeDB = async (data) => {
     try {
@@ -36,32 +36,48 @@ const TradeEntryForm = ({showToast}) => {
     }
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    await saveDataToRealtimeDB(formData);
+    if (!formData.dateTime) {
+      const currentDateTime = new Date();
+      const formattedDateTime = currentDateTime.toISOString(); 
+      setFormData((prev) => ({
+        ...prev,
+        dateTime: formattedDateTime,
+      }));
+      console.log(
+        "Formatted DateTime with Timezone:",
+        currentDateTime.toLocaleString()
+      );
+    }
+
+    const dataToSave = {
+      ...formData,
+      dateTime: formData.dateTime || new Date().toISOString(), 
+    };
+
+    await saveDataToRealtimeDB(dataToSave);
     setFormData({
-        symbol: 'XAUUSD',
-        dateTime: '',
-        entryPriceFrom: '',
-        entryPriceTo: '',
-        stopLoss: '',
-        target1: '',
-        target2: '',
-        target3: '',
-        target4: '',
-         comment: '',
-      })
-      showToast()
+      symbol: "XAUUSD",
+      dateTime: "",
+      entryPriceFrom: "",
+      entryPriceTo: "",
+      stopLoss: "",
+      target1: "",
+      target2: "",
+      target3: "",
+      target4: "",
+      comment: "",
+    });
+    showToast();
+    setTimeout(() => {
+      navigate("/admin-dashboard/trade-call");
+    }, 2000);
   };
-
-
- 
-  
 
   return (
     <div className="w-full md:w-1/2 mx-auto p-4 bg-white shadow-md rounded-md">
-      
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="symbol">
@@ -85,7 +101,7 @@ const TradeEntryForm = ({showToast}) => {
             Date & Time
           </label>
           <input
-          required
+            // required
             type="datetime-local"
             id="dateTime"
             name="dateTime"
@@ -97,11 +113,14 @@ const TradeEntryForm = ({showToast}) => {
 
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-gray-700 mb-2" htmlFor="entryPriceFrom">
+            <label
+              className="block text-gray-700 mb-2"
+              htmlFor="entryPriceFrom"
+            >
               Entry Price From
             </label>
             <input
-            required
+              required
               type="text"
               id="entryPriceFrom"
               name="entryPriceFrom"
@@ -115,7 +134,7 @@ const TradeEntryForm = ({showToast}) => {
               Entry Price To
             </label>
             <input
-            required
+              required
               type="text"
               id="entryPriceTo"
               name="entryPriceTo"
@@ -131,7 +150,7 @@ const TradeEntryForm = ({showToast}) => {
             Stop Loss
           </label>
           <input
-          required
+            required
             type="text"
             id="stopLoss"
             name="stopLoss"
@@ -143,11 +162,14 @@ const TradeEntryForm = ({showToast}) => {
 
         {[1, 2, 3, 4].map((target) => (
           <div className="mb-4" key={target}>
-            <label className="block text-gray-700 mb-2" htmlFor={`target${target}`}>
+            <label
+              className="block text-gray-700 mb-2"
+              htmlFor={`target${target}`}
+            >
               Target {target}
             </label>
             <input
-            required
+              required={target === 1}
               type="text"
               id={`target${target}`}
               name={`target${target}`}
@@ -183,4 +205,3 @@ const TradeEntryForm = ({showToast}) => {
 };
 
 export default TradeEntryForm;
-

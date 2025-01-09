@@ -53,12 +53,13 @@ const DashBoard = () => {
     <>
       <div className="min-h-screen bg-gray-900 flex justify-center">
         <div className="bg-white shadow-lg w-full flex">
-          <div className="w-1/5 sticky top-0">
+          <div className="w-1/5 sticky top-0 bg-black/20 px-3">
             <Sidebar />
           </div>
           {/* Main Content */}
-          <div className="w-4/5 px-6 pb-5">
-            <div className="flex justify-between items-center mb-4 bg-white shadow p-5 sticky top-0">
+          <div className="w-4/5 pb-5">
+           <div className=" sticky top-0 bg-white z-10">
+           <div className="flex justify-between items-center bg-black/20 px-5 py-3">
               {isAdminDashboard ? (
                 <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
               ) : (
@@ -72,7 +73,7 @@ const DashBoard = () => {
                
                   {isAdminDashboard ? (
                     <button
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-lg text-black bg-gray-200 hover:bg-gray-100"
                       onClick={() => {
                         localStorage.clear();
                         navigate("/admin-login");
@@ -97,7 +98,7 @@ const DashBoard = () => {
                 </div>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-6 w-56 bg-white border border-gray-200 rounded-lg shadow-md">
-                    <ul className="">
+                    <ul className="p-0">
                       {isAdminDashboard ? (
                         <button
                           className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -119,18 +120,19 @@ const DashBoard = () => {
                           <Link
                             onClick={toggleDropdown}
                             to={`user-profile`}
-                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 no-underline"
                           >
                             <UserIcon /> Profile
                           </Link>
                           <Link
-                            to={`/billing`}
-                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            onClick={toggleDropdown}
+                            to={`billing`}
+                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 no-underline"
                           >
                             <BillingIcon /> Billing
                           </Link>
                           <button
-                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-t"
+                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 no-underline border-t"
                             onClick={handleLogout}
                           >
                             <SignOutIcon /> Logout
@@ -142,7 +144,10 @@ const DashBoard = () => {
                 )}
               </div>
             </div>
+           </div>
+            <div className=" px-6">
             <Outlet />
+            </div>
           </div>
         </div>
       </div>
