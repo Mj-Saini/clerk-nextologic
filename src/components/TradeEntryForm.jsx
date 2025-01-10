@@ -1,16 +1,19 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { db, realtimeDb } from "./firebase";
-import { push, set, ref } from "firebase/database";
-import { useNavigate } from "react-router-dom";
+import { push, set, ref, onValue, update } from "firebase/database";
+import { useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import Select from "react-select";
 
 const TradeEntryForm = ({ showToast }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [symbols, setSymbols] = useState([]);
+  const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
-  
+    symbol: "",
     dateTime: "",
     entryPriceFrom: "",
     entryPriceTo: "",
@@ -22,27 +25,72 @@ const TradeEntryForm = ({ showToast }) => {
     comment: "",
   });
   useEffect(() => {
-        const fetchSymbols = async () => {
-          try {
-            const symbolsCollection = collection(db, "symbols"); // Firestore collection
-            const snapshot = await getDocs(symbolsCollection);
-            const symbolsData = snapshot.docs.map((doc) => ({
-              value: doc.data().name,
-              label: doc.data().name,
-            })); // Map to React-Select format
-            setSymbols(symbolsData);
-          } catch (error) {
-            console.error("Error fetching symbols: ", error);
-          }
-        };
-    
-        fetchSymbols();
-      }, [db]);
-    
-      const handleSymbolChange = (selectedOption) => {
-        setFormData({ ...formData, symbol: selectedOption ? selectedOption.value : "" });
-      };
+    const fetchData = () => {
+      const tradesRef = ref(realtimeDb, "trades");
   
+      onValue(
+        tradesRef,
+        (snapshot) => {
+          if (snapshot.exists()) {
+            const tradeData = Object.entries(snapshot.val()).map(
+              ([id, value]) => ({
+                id,
+                ...value,
+              })
+            );
+            setData(tradeData);
+            if (id) {
+              const matchedData = tradeData.find((trade) => trade.id === id);
+              if (matchedData) {
+                // Format dateTime if it's available
+                const formattedDateTime = matchedData.dateTime
+                  ? new Date(matchedData.dateTime).toISOString().slice(0, 16)
+                  : ""; // Format to 'YYYY-MM-DDTHH:mm'
+                setFormData({
+                  ...matchedData,
+                  dateTime: formattedDateTime,
+                });
+              }
+            }
+          } else {
+            console.log("No data available");
+            setData([]);
+          }
+        },
+        (error) => {
+          console.error("Error fetching data from Realtime Database: ", error);
+        }
+      );
+    };
+  
+    fetchData();
+  }, [id]);
+  
+
+  useEffect(() => {
+    const fetchSymbols = async () => {
+      try {
+        const symbolsCollection = collection(db, "symbols");
+        const snapshot = await getDocs(symbolsCollection);
+        const symbolsData = snapshot.docs.map((doc) => ({
+          value: doc.data().name,
+          label: doc.data().name,
+        }));
+        setSymbols(symbolsData);
+      } catch (error) {
+        console.error("Error fetching symbols: ", error);
+      }
+    };
+
+    fetchSymbols();
+  }, [db]);
+
+  const handleSymbolChange = (selectedOption) => {
+    setFormData({
+      ...formData,
+      symbol: selectedOption ? selectedOption.value : "",
+    });
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -51,10 +99,20 @@ const TradeEntryForm = ({ showToast }) => {
     });
   };
 
+  const updateDataInRealtimeDB = async (data) => {
+    try {
+      const tradeRef = ref(realtimeDb, `trades/${id}`);
+      await update(tradeRef, data);
+      console.log("Data updated in Realtime Database for ID:", id);
+    } catch (e) {
+      console.error("Error updating data in Realtime Database: ", e);
+    }
+  };
+
   const saveDataToRealtimeDB = async (data) => {
     try {
-      const newTradeRef = push(ref(realtimeDb, "trades")); // Generate a unique key under "trades"
-      await set(newTradeRef, data); // Save data to the generated reference
+      const newTradeRef = push(ref(realtimeDb, "trades"));
+      await set(newTradeRef, data);
       console.log("Data saved to Realtime Database with key:", newTradeRef.key);
     } catch (e) {
       console.error("Error saving data to Realtime Database: ", e);
@@ -71,10 +129,7 @@ const TradeEntryForm = ({ showToast }) => {
         ...prev,
         dateTime: formattedDateTime,
       }));
-      console.log(
-        "Formatted DateTime with Timezone:",
-        currentDateTime.toLocaleString()
-      );
+      console.log("Formatted DateTime with Timezone:", currentDateTime.toLocaleString());
     }
 
     const dataToSave = {
@@ -82,7 +137,11 @@ const TradeEntryForm = ({ showToast }) => {
       dateTime: formData.dateTime || new Date().toISOString(),
     };
 
-    await saveDataToRealtimeDB(dataToSave);
+    if (id) {
+      await updateDataInRealtimeDB(dataToSave);
+    } else {
+      await saveDataToRealtimeDB(dataToSave);
+    }
     setFormData({
       symbol: "XAUUSD",
       dateTime: "",
@@ -101,24 +160,23 @@ const TradeEntryForm = ({ showToast }) => {
     }, 2000);
   };
 
+
+
   return (
     <div className="w-full md:w-1/2 mx-auto p-4 bg-white shadow-md rounded-md">
       <form onSubmit={handleSubmit}>
-     
-
-      <div className="mb-4">
-           <label className="block text-gray-700 mb-2" htmlFor="symbol">
-             Choose Symbol
-           </label>
-           <Select
-             options={symbols}
-             isClearable
-             placeholder="Search or select a symbol"
-             onChange={handleSymbolChange}
-             className="w-full"
-           />
-         </div>
-
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="symbol">
+            Choose Symbol
+          </label>
+          <Select
+            options={symbols}
+            value={symbols.find(symbol => symbol.value === formData.symbol)} 
+            placeholder="Search or select a symbol"
+            onChange={handleSymbolChange}
+            className="w-full"
+          />
+        </div>
 
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="dateTime">
@@ -229,173 +287,3 @@ const TradeEntryForm = ({ showToast }) => {
 };
 
 export default TradeEntryForm;
-
-
-
-
-// /* eslint-disable react/prop-types */
-// import { useState, useEffect } from "react";
-// import { getFirestore, collection, getDocs } from "firebase/firestore";
-// import { push, set, ref } from "firebase/database";
-// import { realtimeDb } from "./firebase";
-// import { useNavigate } from "react-router-dom";
-// import Select from "react-select";
-
-// const TradeEntryForm = ({ showToast }) => {
-//   const navigate = useNavigate();
-//   const [symbols, setSymbols] = useState([]);
-//   const [formData, setFormData] = useState({
-//     symbol: "",
-//     dateTime: "",
-//     entryPriceFrom: "",
-//     entryPriceTo: "",
-//     stopLoss: "",
-//     target1: "",
-//     target2: "",
-//     target3: "",
-//     target4: "",
-//     comment: "",
-//   });
-//   const db = getFirestore();
-
-//   useEffect(() => {
-//     const fetchSymbols = async () => {
-//       try {
-//         const symbolsCollection = collection(db, "symbols"); // Firestore collection
-//         const snapshot = await getDocs(symbolsCollection);
-//         const symbolsData = snapshot.docs.map((doc) => ({
-//           value: doc.data().name,
-//           label: doc.data().name,
-//         })); // Map to React-Select format
-//         setSymbols(symbolsData);
-//       } catch (error) {
-//         console.error("Error fetching symbols: ", error);
-//       }
-//     };
-
-//     fetchSymbols();
-//   }, [db]);
-
-//   const handleSymbolChange = (selectedOption) => {
-//     setFormData({ ...formData, symbol: selectedOption ? selectedOption.value : "" });
-//   };
-
-//   const handleChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
-//   const saveDataToRealtimeDB = async (data) => {
-//     try {
-//       const newTradeRef = push(ref(realtimeDb, "trades")); // Generate unique key
-//       await set(newTradeRef, data); // Save data
-//     } catch (e) {
-//       console.error("Error saving data to Realtime Database: ", e);
-//     }
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const dataToSave = {
-//       ...formData,
-//       dateTime: formData.dateTime || new Date().toISOString(),
-//     };
-
-//     await saveDataToRealtimeDB(dataToSave);
-//     setFormData({
-//       symbol: "",
-//       dateTime: "",
-//       entryPriceFrom: "",
-//       entryPriceTo: "",
-//       stopLoss: "",
-//       target1: "",
-//       target2: "",
-//       target3: "",
-//       target4: "",
-//       comment: "",
-//     });
-//     showToast();
-//     setTimeout(() => {
-//       navigate("/admin-dashboard/trade-call");
-//     }, 2000);
-//   };
-
-//   return (
-//     <div className="w-full md:w-1/2 mx-auto p-4 bg-white shadow-md rounded-md">
-//       <form onSubmit={handleSubmit}>
-//         {/* Symbol Searchable Dropdown */}
-//         <div className="mb-4">
-//           <label className="block text-gray-700 mb-2" htmlFor="symbol">
-//             Choose Symbol
-//           </label>
-//           <Select
-//             options={symbols}
-//             isClearable
-//             placeholder="Search or select a symbol"
-//             onChange={handleSymbolChange}
-//             className="w-full"
-//           />
-//         </div>
-
-//         {/* Date & Time */}
-//         <div className="mb-4">
-//           <label className="block text-gray-700 mb-2" htmlFor="dateTime">
-//             Date & Time
-//           </label>
-//           <input
-//             type="datetime-local"
-//             id="dateTime"
-//             name="dateTime"
-//             value={formData.dateTime}
-//             onChange={handleChange}
-//             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-//           />
-//         </div>
-
-//         {/* Entry Price Fields */}
-//         <div className="grid grid-cols-2 gap-4 mb-4">
-//           <div>
-//             <label className="block text-gray-700 mb-2" htmlFor="entryPriceFrom">
-//               Entry Price From
-//             </label>
-//             <input
-//               required
-//               type="text"
-//               id="entryPriceFrom"
-//               name="entryPriceFrom"
-//               value={formData.entryPriceFrom}
-//               onChange={handleChange}
-//               className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-//             />
-//           </div>
-//           <div>
-//             <label className="block text-gray-700 mb-2" htmlFor="entryPriceTo">
-//               Entry Price To
-//             </label>
-//             <input
-//               required
-//               type="text"
-//               id="entryPriceTo"
-//               name="entryPriceTo"
-//               value={formData.entryPriceTo}
-//               onChange={handleChange}
-//               className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-//             />
-//           </div>
-//         </div>
-
-//         {/* Submit Button */}
-//         <button
-//           type="submit"
-//           className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
-//         >
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default TradeEntryForm;
