@@ -38,7 +38,7 @@ const TradeEntryTable = () => {
             if (tradeData.length > previousData.length) {
               showToast();
             }
-            setPreviousData(tradeData);
+            // setPreviousData(tradeData);
             setData(tradeData);
           } else {
             console.log("No data available");
