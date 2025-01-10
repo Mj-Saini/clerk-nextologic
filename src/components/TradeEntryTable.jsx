@@ -52,7 +52,7 @@ const TradeEntryTable = () => {
     };
 
     fetchData();
-  },[previousData]);
+  },[]);
 
   const formatDate = (dateTime) => {
     const date = new Date(dateTime);
