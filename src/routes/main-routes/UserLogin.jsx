@@ -45,7 +45,7 @@ const UserLogin = () => {
   };
 
   return (
-    <div>
+    <div className="overflow">
       <CustomToast
         message={"trades call has a new entry"}
         show={isToastVisible}
@@ -67,7 +67,7 @@ const UserLogin = () => {
           <Route path="trade-call" element={<TradeEntryTable />} />
           <Route path="settings" element={<Settings />} />
           <Route path="detto-settings" element={<DittoSettings />} />
-          
+
           <Route path="pricing" element={<PricePlan />}>
             <Route path="price" element={<PriceSettings />} />
           </Route>

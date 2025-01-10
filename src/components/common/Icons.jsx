@@ -127,3 +127,157 @@ export const NotificationIcon = () => {
     </svg>
   );
 };
+export const DashBoardIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      // xmlns:xlink="http://www.w3.org/1999/xlink"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M20 6h-3V4c0-1.103-.897-2-2-2H9c-1.103 0-2 .897-2 2v2H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2zm-5-2v2H9V4h6zM8 8h12v3H4V8h4zM4 19v-6h6v2h4v-2h6l.001 6H4z"
+      ></path>
+    </svg>
+  );
+};
+export const PricePlanIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      // xmlns:xlink="http://www.w3.org/1999/xlink"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M20.56 3.34a1 1 0 0 0-1-.08l-17 8a1 1 0 0 0-.57.92a1 1 0 0 0 .6.9L8 15.45v6.72L13.84 18l4.76 2.08a.93.93 0 0 0 .4.09a1 1 0 0 0 .52-.15a1 1 0 0 0 .48-.79l1-15a1 1 0 0 0-.44-.89ZM18.1 17.68l-5.27-2.31L16 9.17l-7.65 4.25l-2.93-1.29l13.47-6.34Z"
+      ></path>
+    </svg>
+  );
+};
+export const DittoSettings = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2h-4V4h10v10z"
+      ></path>
+    </svg>
+  );
+};
+export const Settings = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="m9.981 14.811l-.467 2.726l2.449-1.287l2.449 1.287l-.468-2.726l1.982-1.932l-2.738-.398L11.963 10l-1.225 2.481L8 12.879z"
+      ></path>
+      <path
+        fill="currentColor"
+        d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm.002 16H5V8h14l.002 12z"
+      ></path>
+    </svg>
+  );
+};
+export const PlanHandIcon = () => {
+  return (
+    <svg
+    width={48}
+    height={48}
+      viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+      // style="width: 72px; margin-bottom: 12px;"
+    >
+      <path
+        d="M18.808 11.253A6.5 6.5 0 1 0 10 12.979v-1.236a5.5 5.5 0 1 1 7.736-.735c.377.025.737.11 1.072.245ZM17 10.329a4.5 4.5 0 1 0-7 0V7.49A3.494 3.494 0 0 1 13.5 4C15.43 4 17 5.563 17 7.491v2.838ZM19.499 31C23.642 31 27 27.415 27 23.5c0 0 0 2.313 0 0v-5.998a1.5 1.5 0 1 0-3 0V18h-1v-2.494a1.5 1.5 0 1 0-3 0V17h-1v-2.494a1.5 1.5 0 1 0-3 0V18h-1V7.505a1.499 1.499 0 1 0-3 0V18.8c-2.058-2.2-4.768-4.62-5.879-3.504-1.087 1.093 1.714 4.105 5.626 10.687C13.51 28.95 15.74 31 19.5 31ZM28 23.5a8.5 8.5 0 0 1-8.5 8.5c-3.113 0-6.398-1.453-8.66-5.572-3.263-5.945-7.436-9.845-5.449-11.832 1.422-1.422 3.654-.058 5.609 1.77V7.509a2.5 2.5 0 1 1 5 0v4.99A2.493 2.493 0 0 1 17.5 12c1.083 0 1.995.677 2.346 1.628.44-.39 1.02-.628 1.654-.628 1.39 0 2.5 1.118 2.5 2.498v.013a2.495 2.495 0 0 1 1.5-.497c1.39 0 2.5 1.12 2.5 2.5V23.5Z"
+        fill="#c42b1e"
+        fillRule="evenodd"
+        className="fill-000000"
+      ></path>
+    </svg>
+  );
+};
+export const PrevPageIcon = () => {
+  return (
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    // xmlns:xlink="http://www.w3.org/1999/xlink"
+    aria-hidden="true"
+    role="img"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z"
+    ></path>
+    <path
+      fill="currentColor"
+      d="M16 16V8l-5 4zM9 8v8h2V8z"
+    ></path>
+  </svg>
+  );
+};
+export const PrevArrowIcon = () => {
+  return (
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    className="v-icon notranslate v-theme--light v-icon--size-default iconify iconify--bx"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M13.293 6.293L7.586 12l5.707 5.707l1.414-1.414L10.414 12l4.293-4.293z"
+    ></path>
+  </svg>
+  );
+};
+export const NextPageIcon = () => {
+  return (
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    className="v-icon notranslate v-theme--light v-icon--size-default iconify iconify--bx"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z"
+    ></path>
+    <path
+      fill="currentColor"
+      d="m8 16l5-4l-5-4zm5-4v4h2V8h-2z"
+    ></path>
+  </svg>
+  );
+};

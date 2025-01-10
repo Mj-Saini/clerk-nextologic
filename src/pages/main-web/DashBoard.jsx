@@ -18,6 +18,7 @@ const DashBoard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut , isLoaded} = useAuth();
+  const [openSideBar,setOpenSideBar] = useState(false);
   const { user } = useUser();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -57,19 +58,24 @@ const DashBoard = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 flex justify-center">
-      <div className="bg-white shadow-lg w-full flex">
-        <div className="w-1/5 sticky top-0 bg-black/20 px-3">
+      <div className="bg-white shadow-lg w-full flex justify-end px-3 lg:pe-3 overflow">
+        <div className={` w-1/2 lg:w-16 lg:hover:w-1/5 duration-300 fixed left-0 top-0 bg-white shadow-lg px-3 h-full z-20 
+        ${
+          openSideBar ? "left-0":"max-lg:-left-full"
+        }
+          `}>
           <Sidebar />
         </div>
         {/* Main Content */}
-        <div className="w-4/5 pb-5">
+        <div className="w-full lg:w-[94%] pb-5">
           <div className="sticky top-0 bg-white z-10">
-            <div className="flex justify-between items-center bg-black/20 px-5 py-3">
-              {isAdminDashboard ? (
+            <div className="flex justify-between items-center bg-white shadow-lg rounded-lg px-5 py-3">
+              {/* {isAdminDashboard ? (
                 <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
               ) : (
-                <h2 className="text-2xl font-semibold ">User Dashboard</h2>
-              )}
+                <h2 onClick={()=>setOpenSideBar(!openSideBar)} className="text-2xl font-semibold ">User Dashboard</h2>
+              )} */}
+              <div></div>
               <div className="relative">
                 <div className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
                   {isAdminDashboard ? (
@@ -84,7 +90,7 @@ const DashBoard = () => {
                     </button>
                   ) : (
                     <>
-                      <button className="block w-full whitespace-nowrap px-4 bg-gray-200 py-2 text-base text-[black] rounded-md font-medium relative">
+                      <button className="block w-full whitespace-nowrap px-4 bg-[#C42B1E29] py-2 text-base text-[#C42B1E] rounded-md !font-semibold relative">
                         CHRISTMAS OFFER
                       </button>
                       
@@ -147,7 +153,7 @@ const DashBoard = () => {
               </div>
             </div>
           </div>
-          <div className="px-6">
+          <div className="">
             <Outlet />
           </div>
         </div>
