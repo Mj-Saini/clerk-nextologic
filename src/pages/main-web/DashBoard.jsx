@@ -54,7 +54,6 @@ const DashBoard = () => {
 
   const isAdminDashboard = location.pathname.startsWith("/admin-dashboard");
 
-  console.log(isLoaded,user)
 
   return (
     <div className="min-h-screen bg-gray-900 flex justify-center">

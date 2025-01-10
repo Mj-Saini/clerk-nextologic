@@ -52,7 +52,7 @@ const TradeEntryTable = () => {
     };
 
     fetchData();
-  }, []);
+  },[previousData]);
 
   const formatDate = (dateTime) => {
     const date = new Date(dateTime);
@@ -71,6 +71,8 @@ const TradeEntryTable = () => {
       console.error("Error deleting data: ", error);
     }
   };
+  const isAdminDashboard = location.pathname.startsWith("/admin-dashboard");
+
 
   return (
     <div className="table-responsive mt-5" style={{paddingBottom:"150px"}}>
@@ -93,7 +95,7 @@ const TradeEntryTable = () => {
             <th scope="col">Target 3</th>
             <th scope="col">Target 4</th>
             <th scope="col">Comment</th>
-            <th scope="col">Action</th>
+            {isAdminDashboard &&   <th scope="col">Action</th>}
           </tr>
         </thead>
         <tbody >
@@ -118,7 +120,7 @@ const TradeEntryTable = () => {
               <td>{row.target3}</td>
               <td>{row.target4}</td>
               <td>{row.comment}</td>
-              <td>
+              {isAdminDashboard &&    <td>
                 <div
                   onClick={() => togglePopup(index)}
                   className="d-flex flex-col gap-1 cursor-pointer mx-auto justify-items-center"
@@ -180,7 +182,7 @@ const TradeEntryTable = () => {
                   </ul>
                 </div>
               )}
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>
