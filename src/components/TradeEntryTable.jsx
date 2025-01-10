@@ -1,17 +1,22 @@
-
-
-
 import { useState, useEffect } from "react";
 import { realtimeDb } from "./firebase";
 import { onValue, ref, remove,  } from "firebase/database";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import CustomToast from "./CustomToast";
 
 const TradeEntryTable = () => {
   const [data, setData] = useState([]);
   const [activePopupIndex, setActivePopupIndex] = useState(null); 
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const [previousData, setPreviousData] = useState([]);
 
-
+  const showToast = () => {
+    setIsToastVisible(true);
+    setTimeout(() => {
+      setIsToastVisible(false); // Hide the toast after 2 seconds
+    }, 2000);
+  };
   const togglePopup = (index) => {
     setActivePopupIndex((prevIndex) => (prevIndex === index ? null : index));
   };
@@ -30,6 +35,10 @@ const TradeEntryTable = () => {
                 ...value,
               })
             );
+            if (tradeData.length > previousData.length) {
+              showToast();
+            }
+            setPreviousData(tradeData);
             setData(tradeData);
           } else {
             console.log("No data available");
@@ -57,7 +66,6 @@ const TradeEntryTable = () => {
     try {
       await remove(entryRef);
       console.log(`Entry with ID: ${id} deleted successfully.`);
-      // Update local state to reflect the deletion
       setData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting data: ", error);
@@ -66,6 +74,10 @@ const TradeEntryTable = () => {
 
   return (
     <div className="table-responsive mt-5" style={{paddingBottom:"150px"}}>
+      <CustomToast
+        message={"trades call has a new entry"}
+        show={isToastVisible}
+      />
       <Table className="table table-bordered ">
         <thead className="table-light">
           <tr>
