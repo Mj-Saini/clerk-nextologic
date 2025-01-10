@@ -121,14 +121,15 @@ const AddSymbol = () => {
           {editingSymbol ? "Update" : "Add"}
         </button>
       </div>
-      <div className="flex flex-wrap gap-2 ">
+      <div className="flex flex-wrap ">
         {symbols.map((symbol) => (
           <div
             key={symbol.id}
-            className="flex items-center bg-gray-200 gap-4 rounded px-3 py-1 text-gray-800 group relative"
+            className=" w-full sm:w-1/2 md:w-1/3 px-2 mt-3 h-10"
           >
-            <span>{symbol.name}</span>
-            <div className=" absolute hidden group-hover:flex flex-col justify-start gap-2 right-0 top-full z-10 shadow-md rounded bg-white w-32 h-20 pt-1">
+           <div className="flex items-center justify-between bg-gray-200 gap-4 rounded px-3 py-1 text-gray-800 relative group h-10">
+           <span>{symbol.name}</span>
+            <div className="hidden group-hover:flex justify-start p-0">
               <button
                 onClick={() => removeSymbol(symbol.id)}
                 className="ml-2 text-gray-500 hover:text-gray-700 flex items-center"
@@ -142,6 +143,7 @@ const AddSymbol = () => {
                 ✎ Edit
               </button>
             </div>
+           </div>
           </div>
         ))}
       </div>
