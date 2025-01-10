@@ -1,7 +1,11 @@
-
-
-
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "./firebase";
 
@@ -13,9 +17,9 @@ const AddSymbol = () => {
   useEffect(() => {
     const fetchSymbols = async () => {
       const querySnapshot = await getDocs(collection(db, "symbols"));
-      const fetchedSymbols = querySnapshot.docs.map(doc => ({
+      const fetchedSymbols = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       }));
       setSymbols(fetchedSymbols);
     };
@@ -24,7 +28,10 @@ const AddSymbol = () => {
   }, []);
 
   const handleAddSymbol = async () => {
-    if (inputValue.trim() && !symbols.some(symbol => symbol.name === inputValue.trim())) {
+    if (
+      inputValue.trim() &&
+      !symbols.some((symbol) => symbol.name === inputValue.trim())
+    ) {
       const newSymbol = inputValue.trim();
       try {
         // Add to Firestore
@@ -76,10 +83,18 @@ const AddSymbol = () => {
         // Update in Firestore
         const symbolRef = doc(db, "symbols", editingSymbol.id);
         await updateDoc(symbolRef, { name: inputValue.trim() });
-        console.log(`Document with ID: ${editingSymbol.id} updated successfully.`);
+        console.log(
+          `Document with ID: ${editingSymbol.id} updated successfully.`
+        );
 
         // Update in local state
-        setSymbols(symbols.map(symbol => symbol.id === editingSymbol.id ? { ...symbol, name: inputValue.trim() } : symbol));
+        setSymbols(
+          symbols.map((symbol) =>
+            symbol.id === editingSymbol.id
+              ? { ...symbol, name: inputValue.trim() }
+              : symbol
+          )
+        );
         setInputValue("");
         setEditingSymbol(null); // Reset editing state
       } catch (e) {
@@ -108,22 +123,25 @@ const AddSymbol = () => {
       </div>
       <div className="flex flex-wrap gap-2 ">
         {symbols.map((symbol) => (
-          <div key={symbol.id} className="flex items-center bg-gray-200 rounded px-3 py-1 text-gray-800 group relative">
+          <div
+            key={symbol.id}
+            className="flex items-center bg-gray-200 gap-4 rounded px-3 py-1 text-gray-800 group relative"
+          >
             <span>{symbol.name}</span>
-          <div className=" absolute hidden group-hover:flex flex-col justify-start gap-2 right-0 top-full z-10 shadow-md rounded bg-white w-32 h-20 pt-1">
-          <button
-              onClick={() => removeSymbol(symbol.id)}
-              className="ml-2 text-gray-500 hover:text-gray-700 flex items-center"
-            >
-             <span className="text-2xl -mt-1"> &times;</span>Remove
-            </button>
-            <button
-              onClick={() => handleEditSymbol(symbol)}
-              className="ml-2 text-gray-500 hover:text-gray-700 text-start"
-            >
-              ✎ Edit
-            </button>
-          </div>
+            <div className=" absolute hidden group-hover:flex flex-col justify-start gap-2 right-0 top-full z-10 shadow-md rounded bg-white w-32 h-20 pt-1">
+              <button
+                onClick={() => removeSymbol(symbol.id)}
+                className="ml-2 text-gray-500 hover:text-gray-700 flex items-center"
+              >
+                <span className="text-2xl -mt-1"> &times;</span>Remove
+              </button>
+              <button
+                onClick={() => handleEditSymbol(symbol)}
+                className="ml-2 text-gray-500 hover:text-gray-700 text-start"
+              >
+                ✎ Edit
+              </button>
+            </div>
           </div>
         ))}
       </div>
