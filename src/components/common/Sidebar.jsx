@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/png/logo.png";
 import { DashBoardIcon, DittoSettings, PricePlanIcon, Settings } from "./Icons";
@@ -7,6 +8,7 @@ const Sidebar = ({ sideMenu }) => {
   const isAdminDashboard = location.pathname.startsWith("/admin-dashboard");
   return (
     <div className="top-0 sticky overflow-hidden">
+   
       <div className="pt-6 flex justify-between">
         <img width={40} height={40} src={logo} alt="logo" />
         <span

@@ -289,3 +289,22 @@ export const MenuIcon = () => {
     </svg>
   );
 };
+export const RedArrowIcon = () => {
+  return (
+    <span className="w-[22px] h-[22px] rounded-full bg-[red] flex justify-center items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        role="button"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        className="-scale-110"
+      >
+        <path
+          fill="white"
+          d="M13.293 6.293L7.586 12l5.707 5.707l1.414-1.414L10.414 12l4.293-4.293z"
+        ></path>
+      </svg>
+    </span>
+  );
+};
