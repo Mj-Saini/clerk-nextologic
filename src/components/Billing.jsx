@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { GoBackIcon } from "./common/Icons";
+/* eslint-disable no-unused-vars */
 import { Dropdown, Pagination } from "react-bootstrap";
 import { useState } from "react";
+import { NextPageIcon, PrevArrowIcon, PrevPageIcon } from "./common/Icons";
 
 const Billing = () => {
   const data = [
@@ -48,181 +48,699 @@ const Billing = () => {
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  // const currentData = data.slice(
-  //   (currentPage - 1) * itemsPerPage,
-  //   currentPage * itemsPerPage
-  // );
-
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
+  const handleItemsPerPageChange = (num) => {
+    setItemsPerPage(num);
+    setCurrentPage(1); // Reset to the first page when items per page changes
+  };
+
+  const currentData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="py-4">
-      <div className="mb-5">
-        <h2 className="h4 mb-3 d-flex align-items-center gap-2">
-          <Link to={"/dashboard"}>
-            <GoBackIcon />
-          </Link>
+      <div className="mb-5 bg-white rounded-lg shadow-lg p-3">
+        <h2 className="h4 mb-3 d-flex align-items-center gap-2 text-lg md:text-xl !text-[#6e3b37]">
           1Cliq Subscription
         </h2>
-        <div className="table-responsive bg-white rounded shadow-sm">
-          <table className="table table-bordered table-hover mb-0">
-            <thead className="table-light">
-              <tr>
-                <th style={{fontSize:"14px"}}>Plan Name</th>
-                <th style={{fontSize:"14px"}}>Receipt Id</th>
-                <th style={{fontSize:"14px"}}>Start Date</th>
-                <th style={{fontSize:"14px"}}>End Date</th>
-                <th style={{fontSize:"14px"}}>Validity</th>
-                <th style={{fontSize:"14px"}}>Allowed Brokers</th>
-                <th style={{fontSize:"14px"}}>Amount</th>
-                <th style={{fontSize:"14px"}}>Plan Validity</th>
-                <th style={{fontSize:"14px"}}>Payment</th>
-                <th style={{fontSize:"14px"}}>Purchased At</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((subscription, index) => (
-                <tr key={index}>
-                  <td style={{fontSize:"14px"}}>{subscription.planName}</td>
-                  <td style={{fontSize:"14px"}}>{subscription.receiptId}</td>
-                  <td style={{fontSize:"14px"}}>{subscription.startDate}</td>
-                  <td style={{fontSize:"14px"}}>{subscription.endDate}</td>
-                  <td style={{fontSize:"14px"}}>{subscription.validity}</td>
-                  <td style={{fontSize:"14px"}}>{subscription.allowedBrokers}</td>
-                  <td style={{fontSize:"14px"}}>{subscription.amount}</td>
-                  <td style={{fontSize:"14px"}}>
-                    <span
-                      className={`badge ${
-                        subscription.planValidity === "EXPIRED"
-                          ? "bg-danger"
-                          : "bg-success"
-                      }`}
-                    >
-                      {subscription.planValidity}
-                    </span>
-                  </td>
-                  <td style={{fontSize:"14px"}}>
-                    <span
-                      className={`badge ${
-                        subscription.paymentStatus === "PURCHASED"
-                          ? "bg-success"
-                          : "bg-secondary"
-                      }`}
-                    >
-                      {subscription.paymentStatus}
-                    </span>
-                  </td>
-                  <td style={{fontSize:"14px"}}>{subscription.purchasedAt}</td>
-                </tr>
-              ))}
-              
-            </tbody>
-          </table>
-            {/* Pagination Controls */}
-            <div className="d-flex justify-content-end gap-3 mt-3">
-            <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                Items per page: {itemsPerPage}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {[5, 10, 15, 20].map((num) => (
-                  <Dropdown.Item
-                    key={num}
-                    onClick={() => {
-                      setItemsPerPage(num);
-                      setCurrentPage(1);
+        <div className="table-responsive ">
+          <div className="w-[1100px] xl:w-full">
+            <table className="table mb-0">
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
                     }}
                   >
-                    {num}
-                  </Dropdown.Item>
+                    Plan Name
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Receipt Id
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Start Date
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    End Date
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Validity
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Allowed Brokers
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Amount
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Plan Validity
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Payment
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Purchased At
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentData.map((subscription, index) => (
+                  <tr key={index}>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.planName}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.receiptId}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.startDate}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.endDate}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.validity}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.allowedBrokers}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.amount}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <span
+                        className={`badge !rounded-2xl !text-[13px]  ${
+                          subscription.planValidity === "EXPIRED"
+                            ? "bg-[#C42B1E29] !text-[#C42B1E]"
+                            : "bg-success"
+                        }`}
+                      >
+                        {subscription.planValidity}
+                      </span>
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <span
+                        className={`badge !rounded-2xl !text-[13px] ${
+                          subscription.paymentStatus === "PURCHASED"
+                            ? "bg-[#4caf5029] !text-[#4caf50]"
+                            : "bg-secondary"
+                        }`}
+                      >
+                        {subscription.paymentStatus}
+                      </span>
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.purchasedAt}
+                    </td>
+                  </tr>
                 ))}
-              </Dropdown.Menu>
-            </Dropdown>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {/* Pagination Controls */}
+        <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
+          <Dropdown>
+            <span
+              style={{
+                textAlign: "start",
+                color: "#6e3b37",
+                fontSize: "14px",
+              }}
+              className="me-4"
+            >
+              Items per page:
+            </span>{" "}
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              {itemsPerPage}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {[1, 5, 10, 15, 20].map((num) => (
+                <Dropdown.Item
+                  key={num}
+                  onClick={() => handleItemsPerPageChange(num)}
+                >
+                  {num}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
 
-            <Pagination>
-              <Pagination.First
+          <span
+            style={{
+              textAlign: "start",
+              color: "#6e3b37",
+              fontSize: "14px",
+            }}
+          >
+            {`${(currentPage - 1) * itemsPerPage + 1}-${Math.min(
+              currentPage * itemsPerPage,
+              data.length
+            )} of ${data.length}`}
+          </span>
+
+          <ul className="d-flex mb-0 gap-3 align-items-center">
+            <li>
+              <button
+                type="button"
                 onClick={() => handlePageChange(1)}
                 disabled={currentPage === 1}
-              />
-              <Pagination.Prev
+              >
+                <PrevPageIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-              />
-              {Array.from({ length: totalPages }, (_, index) => (
-                <Pagination.Item
-                  key={index}
-                  active={currentPage === index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </Pagination.Item>
-              ))}
-              <Pagination.Next
+              >
+                <PrevArrowIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                   className="!-scale-110"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-              />
-              <Pagination.Last
+              >
+                <PrevArrowIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
                 onClick={() => handlePageChange(totalPages)}
                 disabled={currentPage === totalPages}
-              />
-            </Pagination>
-          </div>
+              >
+                <NextPageIcon />
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
 
       {/* Ditto Subscription Section */}
-      <div>
-        <h2 className="h4 mb-3">Ditto Subscription</h2>
-        <div className="table-responsive bg-white rounded shadow-sm">
-          <table className="table table-bordered table-hover mb-0">
-            <thead className="table-light">
+      <div className="mb-5 bg-white rounded-lg shadow-lg p-3">
+        <h2 className="h4 mb-3 text-lg md:text-xl !text-[#6e3b37]">
+          Ditto Subscription
+        </h2>
+        <div className="table-responsive">
+          <table className="table mb-0">
+            <thead className="">
               <tr>
-                <th>Plan Name</th>
-                <th>Receipt Id</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Validity</th>
-                <th>Allowed Brokers</th>
-                <th>Amount</th>
-                <th>Plan Type</th>
-                <th>Plan Validity</th>
-                <th>Payment</th>
-                <th>Purchased At</th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Plan Name
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Receipt Id
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Start Date
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  End Date
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Validity
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Allowed Brokers
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Amount
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Plan Type
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Plan Validity
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Payment
+                </th>
+                <th
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "12px",
+                  }}
+                >
+                  Purchased At
+                </th>
               </tr>
             </thead>
             <tbody>
               {[].length > 0 ? (
                 [].map((subscription, index) => (
                   <tr key={index}>
-                    <td>{subscription.planName}</td>
-                    <td>{subscription.receiptId}</td>
-                    <td>{subscription.startDate}</td>
-                    <td>{subscription.endDate}</td>
-                    <td>{subscription.validity}</td>
-                    <td>{subscription.allowedBrokers}</td>
-                    <td>{subscription.amount}</td>
-                    <td>{subscription.planType}</td>
-                    <td>{subscription.planValidity}</td>
-                    <td>{subscription.paymentStatus}</td>
-                    <td>{subscription.purchasedAt}</td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "!border-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.planName}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.receiptId}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.startDate}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.endDate}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.validity}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.allowedBrokers}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.amount}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.planType}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.planValidity}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.paymentStatus}
+                    </td>
+                    <td
+                      className={` ${
+                        index === subscription.length - 1 ? "bottom-0" : ""
+                      }`}
+                      style={{
+                        textAlign: "start",
+                        color: "#6e3b37",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {subscription.purchasedAt}
+                    </td>
                   </tr>
-                  
                 ))
               ) : (
                 <tr>
-                  <td colSpan="11" className="text-center text-muted">
+                  <td
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "14px",
+                    }}
+                    colSpan="11"
+                    className="text-center border-0"
+                  >
                     No data available
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+        </div>
+        {/* Pagination Controls */}
+        <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
+          <Dropdown>
+            <span
+              style={{
+                textAlign: "start",
+                color: "#6e3b37",
+                fontSize: "14px",
+              }}
+              className="me-4"
+            >
+              Items per page:
+            </span>{" "}
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              {itemsPerPage}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {[1, 5, 10, 15, 20].map((num) => (
+                <Dropdown.Item
+                  key={num}
+                  onClick={() => handleItemsPerPageChange(num)}
+                >
+                  {num}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
 
-        
+          <span
+            style={{
+              textAlign: "start",
+              color: "#6e3b37",
+              fontSize: "14px",
+            }}
+          >
+            {`${(currentPage - 1) * itemsPerPage + 1}-${Math.min(
+              currentPage * itemsPerPage,
+              data.length
+            )} of ${data.length}`}
+          </span>
+
+          <ul className="d-flex mb-0 gap-3 align-items-center">
+            <li>
+              <button
+                type="button"
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+              >
+                <PrevPageIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <PrevArrowIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                   className="!-scale-110"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <PrevArrowIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                <NextPageIcon />
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

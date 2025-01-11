@@ -2,15 +2,25 @@
 import { useState, useEffect } from "react";
 import { realtimeDb } from "./firebase";
 import { onValue, ref, remove } from "firebase/database";
-import { Table } from "react-bootstrap";
+import { Dropdown, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomToast from "./CustomToast";
+import { NextPageIcon, PrevArrowIcon, PrevPageIcon } from "./common/Icons";
 
 const TradeEntryTable = () => {
   const [data, setData] = useState([]);
   const [activePopupIndex, setActivePopupIndex] = useState(null);
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [previousData, setPreviousData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+
+    const handlePageChange = (page) => {
+      if (page >= 1 && page <= totalPages) {
+        setCurrentPage(page);
+      }
+    };
 
   const showToast = () => {
     setIsToastVisible(true);
@@ -74,12 +84,13 @@ const TradeEntryTable = () => {
   const isAdminDashboard = location.pathname.startsWith("/admin-dashboard");
 
   return (
-    <div className="table-responsive mt-5" style={{ paddingBottom: "150px" }}>
+    <div className="mt-5 bg-white shadow-lg rounded-lg p-2" style={{ paddingBottom: "150px" }}>
       <CustomToast
         message={"Table is Updated."}
         show={isToastVisible}
       />
-      <div className="w-[1100px] xl:w-full">
+     <div className="table-responsive">
+     <div className="w-[1100px] xl:w-full">
         <Table>
           <thead className="">
             <tr>
@@ -412,6 +423,119 @@ const TradeEntryTable = () => {
           </tbody>
         </Table>
       </div>
+     </div>
+        {/* Pagination Controls */}
+        <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
+                <Dropdown>
+                  <span
+                    style={{
+                      textAlign: "start",
+                      color: "#6e3b37",
+                      fontSize: "14px",
+                    }}
+                    className="me-4"
+                  >
+                    Items per page:
+                  </span>{" "}
+                  <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                    {itemsPerPage}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {[5, 10, 15, 20].map((num) => (
+                      <Dropdown.Item
+                        key={num}
+                        onClick={handlePageChange}
+                      >
+                        {num}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+
+                <span
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "14px",
+                  }}
+                >
+                  1-1 of 1
+                </span>
+
+                <ul className="d-flex mb-0 gap-3 align-items-center">
+                  <li
+                    className="v-pagination__first"
+                    data-test="v-pagination-first"
+                  >
+                    <button
+                      type="button"
+                      className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
+                      disabled=""
+                      aria-label="First page"
+                      aria-disabled="true"
+                    >
+                      <span className="v-btn__overlay"></span>
+                      <span className="v-btn__underlay"></span>
+                      <span
+                        className="v-btn__content opacity-30"
+                        data-no-activator=""
+                      >
+                        <PrevPageIcon />
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    className="v-pagination__prev"
+                    data-test="v-pagination-prev"
+                  >
+                    <button
+                      type="button"
+                      disabled=""
+                      aria-label="Previous page"
+                      aria-disabled="true"
+                    >
+                      <span className="opacity-30">
+                        <PrevArrowIcon />
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    className="v-pagination__next"
+                    data-test="v-pagination-next"
+                  >
+                    <button
+                      type="button"
+                      disabled=""
+                      aria-label="Next page"
+                      aria-disabled="true"
+                      className="!-scale-110"
+                    >
+                      <span className="opacity-30" data-no-activator="">
+                        <PrevArrowIcon />
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    className="v-pagination__last"
+                    data-test="v-pagination-last"
+                  >
+                    <button
+                      type="button"
+                      className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
+                      disabled=""
+                      aria-label="Last page"
+                      aria-disabled="true"
+                    >
+                      <span className="v-btn__overlay"></span>
+                      <span className="v-btn__underlay"></span>
+                      <span className="opacity-30" data-no-activator="">
+                        <NextPageIcon />
+                      </span>
+                    </button>
+                  </li>
+                </ul>
+               
+              </div>
     </div>
   );
 };
