@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+*{
+  font-family: "Nunito", serif;
+  text-decoration: none !important;
+}
+
 /* Dark Button */
 .btn_dark {
   background-color: #C42B1E;
@@ -9,7 +16,7 @@
 }
 
 .btn_dark:hover {
-  background-color: #333; /* Darker shade for hover */
+  background-color: #c42c1ec4; /* Darker shade for hover */
 }
 
 .btn_light {
@@ -109,6 +116,20 @@
 
 .custom-select::after {
   content: "";
+}
+
+.dropdown-menu {
+  --bs-dropdown-min-width: 55px !important;
+  --bs-dropdown-color: #6e3b37 !important;
+  --bs-dropdown-link-color: #6e3b37 !important;
+  --bs-dropdown-link-hover-color: #c42b1e !important;
+  --bs-dropdown-link-hover-bg: #c42b1e29 !important;
+  --bs-dropdown-link-active-color: #c42b1e !important;}
+
+  .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: #6e3b37 !important;
+    background-color: transparent !important;
+    border-color: #6e3b37 !important;
 }
 
 @media (min-width: 320px) {

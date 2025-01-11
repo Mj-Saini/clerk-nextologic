@@ -11,20 +11,20 @@ const Sidebar = ({ sideMenu }) => {
         <img width={40} height={40} src={logo} alt="logo" />
         <span
           onClick={sideMenu}
-          className="text-3xl cursor-pointer text-[#C42B1E] "
+          className="text-3xl cursor-pointer text-[#C42B1E] block lg:hidden "
         >
           &times;
         </span>
       </div>
       <nav className="mt-6">
-        <div className="flex flex-col gap-3 ps-2">
+        <div className="flex flex-col gap-3 ps-1">
           {isAdminDashboard ? (
             <>
               <Link
                 onClick={sideMenu}
                 to={""}
-                className={`flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize ${
-                  location.pathname === "" ? "#C42B1E29" : ""
+                className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/admin-dashboard" ? "bg-[#C42B1E29]" : ""
                 }`}
               >
                 <span className="mr-3">
@@ -35,21 +35,27 @@ const Sidebar = ({ sideMenu }) => {
               <Link
                 onClick={sideMenu}
                 to={"trade-call"}
-                className="flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize"
+                 className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/admin-dashboard/trade-call" ? "bg-[#C42B1E29]" : ""
+                }`}
               >
                 <span className="mr-3"><PricePlanIcon /></span> trade call
               </Link>
               <Link
                 onClick={sideMenu}
                 to={"trade-call-form"}
-                className="flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize"
+                 className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/admin-dashboard/trade-call-form" ? "bg-[#C42B1E29]" : ""
+                }`}
               >
                 <span className="mr-3">👤</span> trade call form
               </Link>
               <Link
                 onClick={sideMenu}
                 to={"add-symbol"}
-                className="flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize"
+                 className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/admin-dashboard/add-symbol" ? "bg-[#C42B1E29]" : ""
+                }`}
               >
                 <span className="mr-3">👤</span> add symbol
               </Link>
@@ -59,8 +65,8 @@ const Sidebar = ({ sideMenu }) => {
               <Link
                 onClick={sideMenu}
                 to={""}
-                className={`flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize ${
-                  location.pathname === "" ? "#C42B1E29" : ""
+                className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/dashboard" ? "bg-[#C42B1E29]" : ""
                 }`}
               >
                 <span className="mr-3">
@@ -71,8 +77,8 @@ const Sidebar = ({ sideMenu }) => {
               <Link
                 onClick={sideMenu}
                 to={"trade-call"}
-                className={`flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize ${
-                  location.pathname === "trade-call" ? "#C42B1E29" : "#C42B1E29"
+                className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/dashboard/trade-call" ? "bg-[#C42B1E29]" : ""
                 }`}
               >
                 <span className="mr-3">
@@ -80,20 +86,13 @@ const Sidebar = ({ sideMenu }) => {
                 </span>{" "}
                 trade call
               </Link>
-              <Link
-                onClick={sideMenu}
-                to={"settings"}
-                className="flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize"
-              >
-                <span className="mr-3">
-                  <DittoSettings />
-                </span>{" "}
-                settings
-              </Link>
+             
               <Link
                 onClick={sideMenu}
                 to={"detto-settings"}
-                className="flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize"
+                 className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/dashboard/detto-settings" ? "bg-[#C42B1E29]" : ""
+                }`}
               >
                 <span className="mr-3">
                   <Settings />
@@ -103,9 +102,23 @@ const Sidebar = ({ sideMenu }) => {
               <Link
                 onClick={sideMenu}
                 to={"pricing"}
-                className="flex items-center py-3 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize"
+                 className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/dashboard/pricing" ? "bg-[#C42B1E29]" : ""
+                }`}
               >
-                <span className="mr-3">👤</span> pricing
+                <span className="mr-3">👤</span> !Cliq Plan
+              </Link>
+              <Link
+                onClick={sideMenu}
+                to={"settings"}
+                 className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
+                  location.pathname === "/dashboard/settings" ? "bg-[#C42B1E29]" : ""
+                }`}
+              >
+                <span className="mr-3">
+                  <DittoSettings />
+                </span>{" "}
+                favourite settings
               </Link>
             </>
           )}

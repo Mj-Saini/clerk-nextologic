@@ -11,7 +11,7 @@ const DittoSettings = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
   return (
-    <div className="py-4">
+    <div className="py-2">
       {show && (
         <div className="fixed top-0 left-0 h-screen w-full flex justify-center items-center ">
           <div
@@ -89,6 +89,7 @@ const DittoSettings = () => {
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "12px",
+                      fontWeight:"normal"
                     }}
                   >
                     Broker
@@ -98,6 +99,7 @@ const DittoSettings = () => {
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "12px",
+                      fontWeight:"normal"
                     }}
                   >
                     Child ID
@@ -107,6 +109,7 @@ const DittoSettings = () => {
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "12px",
+                      fontWeight:"normal"
                     }}
                   >
                     Multiplier
@@ -116,6 +119,7 @@ const DittoSettings = () => {
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "12px",
+                      fontWeight:"normal"
                     }}
                   >
                     Status
@@ -125,6 +129,7 @@ const DittoSettings = () => {
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "12px",
+                      fontWeight:"normal"
                     }}
                   >
                     Action
@@ -134,6 +139,7 @@ const DittoSettings = () => {
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "12px",
+                      fontWeight:"normal"
                     }}
                   >
                     Added At

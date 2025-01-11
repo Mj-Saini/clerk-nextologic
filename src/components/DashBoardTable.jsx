@@ -106,6 +106,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                         className="ps-3"
@@ -117,6 +118,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -127,6 +129,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -137,6 +140,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -147,6 +151,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -157,6 +162,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -167,6 +173,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -177,6 +184,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -187,6 +195,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >
@@ -197,6 +206,7 @@ const DashboardTable = () => {
                           textAlign: "start",
                           color: "#6e3b37",
                           fontSize: "12px",
+                             fontWeight:"normal"
                         }}
                         scope="col"
                       >

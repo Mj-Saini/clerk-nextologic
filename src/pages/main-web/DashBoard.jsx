@@ -64,7 +64,7 @@ const DashBoard = () => {
   return (
     <div className="min-h-screen bg-gray-900 flex justify-center">
       <div className="bg-white shadow-lg w-full flex justify-end px-3 lg:pe-3 overflow">
-        <div className={` w-1/2 lg:w-16 lg:hover:w-1/5 duration-300 fixed left-0 top-0 bg-white shadow-lg px-3 h-full z-20 
+        <div className={` w-1/2 lg:w-[69px] lg:hover:w-1/5 duration-300 fixed left-0 top-0 bg-white shadow-lg px-3 h-full z-20 
         ${
           openSideBar ? "left-0":"max-lg:-left-full"
         }
@@ -74,10 +74,10 @@ const DashBoard = () => {
         {/* Main Content */}
         <div className="w-full lg:w-[94%] pb-5">
           <div className="sticky top-0 bg-white z-10">
-            <div className="flex justify-between items-center bg-white shadow-lg rounded-lg p-3">
+            <div className="flex justify-between lg:justify-end items-center bg-white shadow-lg rounded-lg px-3 py-1 mt-2">
              
              
-              <div onClick={toggleSideBar} className="cursor-pointer">
+              <div onClick={toggleSideBar} className="cursor-pointer lg:hidden">
                 <MenuIcon/>
               </div>
               <div className="relative">

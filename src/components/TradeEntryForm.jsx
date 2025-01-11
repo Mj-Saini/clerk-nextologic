@@ -186,20 +186,25 @@ const TradeEntryForm = ({ showToast }) => {
             value={symbols.find((symbol) => symbol.value === formData.symbol)}
             placeholder="Search or select a symbol"
             onChange={handleSymbolChange}
-            className="w-full"
+            className="w-full outline-none"
             styles={{
-              control: (provided) => ({
+              control: (provided, state) => ({
                 ...provided,
                 borderRadius: "0.375rem",
                 padding: "0.25rem",
+                outline: "none",
+                boxShadow: state.isFocused ? "none" : "none",
+                borderColor: state.isFocused ? "none" :"none",
               }),
               singleValue: (provided) => ({
                 ...provided,
                 color: "#6b3e37",
+                outline: "none",
               }),
               menu: (provided) => ({
                 ...provided,
                 color: "#6b3e37",
+                outline: "none",
               }),
             }}
           />
