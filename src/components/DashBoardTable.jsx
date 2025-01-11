@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { Dropdown, Pagination, Table } from "react-bootstrap";
+import { Button, Dropdown, Pagination, Table } from "react-bootstrap";
 import { useNavigate, useLocation, Outlet } from "react-router-dom"; // Import useLocation
 import NewForm from "./NewForm";
 import { useState } from "react";
 import { NextPageIcon, PrevArrowIcon, PrevPageIcon } from "./common/Icons";
+import dittoPlan from "../assets/images/png/ditto-plan-img.png";
 
 const data = [
   {
@@ -73,25 +74,30 @@ const DashboardTable = () => {
             {/* Action Buttons */}
             <div
               style={{ display: "flex", justifyContent: "space-between" }}
-              className="mb-3 bg-white shadow-lg p-3 rounded-lg"
+              className="mb-3 bg-white shadow-lg p-3 rounded-lg flex flex-col sm:!flex-row gap-3"
             >
               <div className="d-flex gap-2">
                 <button
                   onClick={() => setAddBroker(true)}
-                  className="btn_dark shadow-sm"
+                  className="btn_dark shadow-sm max-sm:w-full text-xs px-2"
                 >
                   Add broker
                 </button>
-                <button className="btn_light ">Refresh</button>
+                <button className="btn_light max-sm:w-full text-xs px-2">
+                  Refresh
+                </button>
               </div>
               <div>
-                <button className="btn_dark shadow-sm">Open Solo Window</button>
+                <button className="btn_dark shadow-sm w-full text-xs px-2">
+                  Open Solo Window
+                </button>
               </div>
             </div>
 
             {/* Table */}
-            <div className=" overflow-auto shadow-lg pe-3 bg-white rounded-lg" >
-              <div className=" py-3 ">
+            <div className="  shadow-lg pe-3 bg-white rounded-lg">
+              <div className="overflow-auto">
+              <div className=" py-3 w-[1100px] xl:w-full ">
                 <Table style={{ width: "100%" }}>
                   <thead>
                     <tr>
@@ -314,122 +320,122 @@ const DashboardTable = () => {
                     ))}
                   </tbody>
                 </Table>
-
-                {/* Pagination Controls */}
-                <div className="d-flex justify-content-end align-items-center gap-3 mt-3">
-                  <Dropdown>
-                    <span
-                      style={{
-                        textAlign: "start",
-                        color: "#6e3b37",
-                        fontSize: "14px",
-                      }}
-                      className="me-4"
-                    >
-                      Items per page:
-                    </span>{" "}
-                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                      {itemsPerPage}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      {[5, 10, 15, 20].map((num) => (
-                        <Dropdown.Item
-                          key={num}
-                          onClick={() => {
-                            setItemsPerPage(num);
-                            setCurrentPage(1);
-                          }}
-                        >
-                          {num}
-                        </Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-
+              </div>
+              </div>
+              {/* Pagination Controls */}
+              <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
+                <Dropdown>
                   <span
                     style={{
                       textAlign: "start",
                       color: "#6e3b37",
                       fontSize: "14px",
                     }}
+                    className="me-4"
                   >
-                    1-1 of 1
-                  </span>
+                    Items per page:
+                  </span>{" "}
+                  <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                    {itemsPerPage}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {[5, 10, 15, 20].map((num) => (
+                      <Dropdown.Item
+                        key={num}
+                        onClick={() => {
+                          setItemsPerPage(num);
+                          setCurrentPage(1);
+                        }}
+                      >
+                        {num}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
 
-                  <ul className="d-flex mb-0 gap-3 align-items-center">
-                    <li
-                      className="v-pagination__first"
-                      data-test="v-pagination-first"
+                <span
+                  style={{
+                    textAlign: "start",
+                    color: "#6e3b37",
+                    fontSize: "14px",
+                  }}
+                >
+                  1-1 of 1
+                </span>
+
+                <ul className="d-flex mb-0 gap-3 align-items-center">
+                  <li
+                    className="v-pagination__first"
+                    data-test="v-pagination-first"
+                  >
+                    <button
+                      type="button"
+                      className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
+                      disabled=""
+                      aria-label="First page"
+                      aria-disabled="true"
                     >
-                      <button
-                        type="button"
-                        className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
-                        disabled=""
-                        aria-label="First page"
-                        aria-disabled="true"
+                      <span className="v-btn__overlay"></span>
+                      <span className="v-btn__underlay"></span>
+                      <span
+                        className="v-btn__content opacity-30"
+                        data-no-activator=""
                       >
-                        <span className="v-btn__overlay"></span>
-                        <span className="v-btn__underlay"></span>
-                        <span className="v-btn__content" data-no-activator="">
-                          <PrevPageIcon />
-                        </span>
-                      </button>
-                    </li>
-                    <li
-                      className="v-pagination__prev"
-                      data-test="v-pagination-prev"
+                        <PrevPageIcon />
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    className="v-pagination__prev"
+                    data-test="v-pagination-prev"
+                  >
+                    <button
+                      type="button"
+                      disabled=""
+                      aria-label="Previous page"
+                      aria-disabled="true"
                     >
-                      <button
-                        type="button"
-                        disabled=""
-                        aria-label="Previous page"
-                        aria-disabled="true"
-                      >
-                        
-                        <span className="">
-                         <PrevArrowIcon/>
-                        </span>
-                      </button>
-                    </li>
-                    <li
-                      className="v-pagination__next"
-                      data-test="v-pagination-next"
+                      <span className="opacity-30">
+                        <PrevArrowIcon />
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    className="v-pagination__next"
+                    data-test="v-pagination-next"
+                  >
+                    <button
+                      type="button"
+                      disabled=""
+                      aria-label="Next page"
+                      aria-disabled="true"
+                      className="!-scale-110"
                     >
-                      <button
-                        type="button"
-                       
-                        disabled=""
-                        aria-label="Next page"
-                        aria-disabled="true"
-                        className="!-scale-110"
-                      >
-                      
-                        <span className="v-btn__content" data-no-activator="">
-                         <PrevArrowIcon/>
-                          
-                        </span>
-                      </button>
-                    </li>
-                    <li
-                      className="v-pagination__last"
-                      data-test="v-pagination-last"
+                      <span className="opacity-30" data-no-activator="">
+                        <PrevArrowIcon />
+                      </span>
+                    </button>
+                  </li>
+                  <li
+                    className="v-pagination__last"
+                    data-test="v-pagination-last"
+                  >
+                    <button
+                      type="button"
+                      className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
+                      disabled=""
+                      aria-label="Last page"
+                      aria-disabled="true"
                     >
-                      <button
-                        type="button"
-                        className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
-                        disabled=""
-                        aria-label="Last page"
-                        aria-disabled="true"
-                      >
-                        <span className="v-btn__overlay"></span>
-                        <span className="v-btn__underlay"></span>
-                        <span className="v-btn__content" data-no-activator="">
-                        <NextPageIcon/>
-                        </span>
-                      </button>
-                    </li>
-                  </ul>
-                  {/* <Pagination>
+                      <span className="v-btn__overlay"></span>
+                      <span className="v-btn__underlay"></span>
+                      <span className="opacity-30" data-no-activator="">
+                        <NextPageIcon />
+                      </span>
+                    </button>
+                  </li>
+                </ul>
+                {/* <Pagination>
                     <Pagination.First
                       onClick={() => handlePageChange(1)}
                       disabled={currentPage === 1}
@@ -456,8 +462,30 @@ const DashboardTable = () => {
                       disabled={currentPage === totalPages}
                     />
                   </Pagination> */}
-                </div>
               </div>
+            </div>
+            <div className="border p-4 d-flex flex-col-reverse sm:flex-row gap-3 justify-center sm:!justify-start align-items-center justify-content-between bg-white shadow-lg mt-2 relative  rounded-lg">
+              <div className="max-sm:text-center sm:text-start">
+                <h5 className="mb-2 text-[#c42b1e] text-lg md:text-xl">
+                  1Cliq Ditto 🎉
+                </h5>
+                <p className="mb-3 text-base text-[#6e3b37]">
+                  Trade. Replicate. Succeed. <br />
+                  Trading is never gonna be the same again.
+                </p>
+                <Button
+                  variant="danger"
+                  className="!text-xs !uppercase !font-bold"
+                >
+                  Show Ditto Plans
+                </Button>
+              </div>
+              <img
+                src={dittoPlan}
+                alt="Illustration"
+                className="sm:absolute bottom-0 right-10"
+                style={{ maxWidth: "150px" }}
+              />
             </div>
           </div>
         </div>

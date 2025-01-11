@@ -6,6 +6,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/common/Sidebar";
 import {
   BillingIcon,
+  MenuIcon,
   SignOutIcon,
   UserIcon,
   UserProfileIcon,
@@ -26,6 +27,10 @@ const DashBoard = () => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleSideBar = () => {
+    setOpenSideBar(!openSideBar);
   };
 
   const handleLogout = async () => {
@@ -64,23 +69,22 @@ const DashBoard = () => {
           openSideBar ? "left-0":"max-lg:-left-full"
         }
           `}>
-          <Sidebar />
+          <Sidebar sideMenu={toggleSideBar}/>
         </div>
         {/* Main Content */}
         <div className="w-full lg:w-[94%] pb-5">
           <div className="sticky top-0 bg-white z-10">
-            <div className="flex justify-between items-center bg-white shadow-lg rounded-lg px-5 py-3">
-              {/* {isAdminDashboard ? (
-                <h2 className="text-2xl font-semibold ">Admin Dashboard</h2>
-              ) : (
-                <h2 onClick={()=>setOpenSideBar(!openSideBar)} className="text-2xl font-semibold ">User Dashboard</h2>
-              )} */}
-              <div></div>
+            <div className="flex justify-between items-center bg-white shadow-lg rounded-lg p-3">
+             
+             
+              <div onClick={toggleSideBar} className="cursor-pointer">
+                <MenuIcon/>
+              </div>
               <div className="relative">
                 <div className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
                   {isAdminDashboard ? (
                     <button
-                      className="block w-full text-left px-4 py-2 text-lg text-black bg-gray-200 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-lg btn_light"
                       onClick={() => {
                         localStorage.clear();
                         navigate("/admin-login");
@@ -90,25 +94,25 @@ const DashBoard = () => {
                     </button>
                   ) : (
                     <>
-                      <button className="block w-full whitespace-nowrap px-4 bg-[#C42B1E29] py-2 text-base text-[#C42B1E] rounded-md !font-semibold relative">
+                      <button className="block w-full whitespace-nowrap px-2 sm:px-4 bg-[#C42B1E29] py-2 text-xs sm:text-base text-[#C42B1E] rounded-md !font-semibold relative">
                         CHRISTMAS OFFER
                       </button>
                       
                       <button
                         onClick={toggleDropdown}
-                        className="block w-full text-center whitespace-nowrap ps-4 py-2 text-base text-gray-700 "
+                        className="block w-full text-center whitespace-nowrap ps-2 sm:ps-4 py-2 text-base text-gray-700 "
                       >
                          {isLoaded && user ? <img width={40} height={40} className="rounded-full" src={user.imageUrl } alt="use-profile" />: <UserProfileIcon />}
                       </button>
                     </>
                   )}
                 </div>
-                {isDropdownOpen && (
-                  <div className="absolute right-0 mt-6 w-56 bg-white border border-gray-200 rounded-lg shadow-md">
-                    <ul className="p-0">
+                {/* {isDropdownOpen && ( */}
+                  <div className={`absolute right-0 mt-6  bg-white border border-gray-200 rounded-lg shadow-md duration-300 overflow-hidden ${isDropdownOpen ? "w-56 h-56":"w-[1px] h-[1px]"}`}>
+                    <ul className={`p-0`}>
                       {isAdminDashboard ? (
                         <button
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="block w-full text-left px-4 py-2 text-sm text-[#6b3e37] hover:bg-gray-100"
                           onClick={() => {
                             localStorage.clear();
                             navigate("/admin-login");
@@ -119,7 +123,7 @@ const DashBoard = () => {
                       ) : (
                         <>
                           <button
-                            className="w-full text-center whitespace-nowrap px-4 py-2 text-base text-gray-700 flex items-center font-medium capitalize gap-2 border-b "
+                            className="w-full text-center whitespace-nowrap px-4 py-2 text-base uppercase text-[#6b3e37] flex items-center font-medium gap-2 border-b "
                           >
                         
                              {isLoaded && user ? <img width={40} height={40} className="rounded-full" src={user.imageUrl } alt="use-profile" />: <UserProfileIcon />}
@@ -128,19 +132,19 @@ const DashBoard = () => {
                           <Link
                             onClick={toggleDropdown}
                             to={`user-profile`}
-                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 no-underline"
+                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-[#6b3e37] hover:bg-gray-100 no-underline"
                           >
                             <UserIcon /> Profile
                           </Link>
                           <Link
                             onClick={toggleDropdown}
                             to={`billing`}
-                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 no-underline"
+                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-[#6b3e37] hover:bg-gray-100 no-underline"
                           >
                             <BillingIcon /> Billing
                           </Link>
                           <button
-                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 no-underline border-t"
+                            className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-[#6b3e37] hover:bg-gray-100 no-underline border-t"
                             onClick={handleLogout}
                           >
                             <SignOutIcon /> Logout
@@ -149,11 +153,11 @@ const DashBoard = () => {
                       )}
                     </ul>
                   </div>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>
-          <div className="">
+          <div>
             <Outlet />
           </div>
         </div>
