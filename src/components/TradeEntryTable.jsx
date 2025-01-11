@@ -37,10 +37,10 @@ const TradeEntryTable = () => {
               })
             );
             if (tradeData.length > previousData.length) {
-              showToast();
-            }
-            // setPreviousData(tradeData);
+
+            showToast();}
             setData(tradeData);
+
           } else {
             console.log("No data available");
             setData([]);
@@ -76,7 +76,7 @@ const TradeEntryTable = () => {
   return (
     <div className="table-responsive mt-5" style={{ paddingBottom: "150px" }}>
       <CustomToast
-        message={"trades call has a new entry"}
+        message={"Table is Updated."}
         show={isToastVisible}
       />
       <div className="w-[1100px] xl:w-full">

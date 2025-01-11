@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Button, Dropdown, Pagination, Table } from "react-bootstrap";
-import { useNavigate, useLocation, Outlet } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import NewForm from "./NewForm";
 import { useState } from "react";
 import { NextPageIcon, PrevArrowIcon, PrevPageIcon } from "./common/Icons";
@@ -25,18 +25,10 @@ const data = [
 const DashboardTable = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const [addBroker, setAddBroker] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
   const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  // const currentData = data.slice(
-  //   (currentPage - 1) * itemsPerPage,
-  //   currentPage * itemsPerPage
-  // );
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {

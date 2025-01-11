@@ -64,7 +64,7 @@ const DashBoard = () => {
   return (
     <div className="min-h-screen bg-gray-900 flex justify-center">
       <div className="bg-white shadow-lg w-full flex justify-end px-3 lg:pe-3 overflow">
-        <div className={` w-1/2 lg:w-[69px] lg:hover:w-1/5 duration-300 fixed left-0 top-0 bg-white shadow-lg px-3 h-full z-20 
+        <div className={` w-4/5 lg:w-[69px] lg:hover:w-1/5 duration-300 fixed left-0 top-0 bg-white shadow-lg px-3 h-full z-20 
         ${
           openSideBar ? "left-0":"max-lg:-left-full"
         }
