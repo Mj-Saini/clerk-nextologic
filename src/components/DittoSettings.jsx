@@ -23,90 +23,60 @@ const DittoSettings = () => {
         </div>
       )}
       {/* Parent Broker Section */}
-      <div className="d-flex flex-col lg:flex-row justify-content-between !bg-white shadow-lg rounded-lg p-3 mb-2">
-        <div className="d-flex flex-col lg:flex-row lg:align-items-center">
-          <div className="d-flex flex-col">
-            <span className="me-3 fw-bold text-base text-[#6e3b37] whitespace-nowrap">
-              Parent Broker:
-            </span>
-            <span className="text-base text-[#6e3b37]">No Parent</span>
+
+      <div className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-lg rounded-lg p-3 mb-2 ">
+        {/* Parent Broker Section */}
+        <div className="flex flex-col lg:items-center lg:flex-row gap-2 w-full lg:w-4/5">
+          <div className="flex flex-col mb-4 sm:mb-0 text-base text-[#6e3b37]">
+            <span className="font-medium mr-2 whitespace-nowrap">Parent Broker:</span>
+            <span className="font-normal">No Parent</span>
+          </div>{" "}
+         <div className="flex flex-wrap lg:flex-nowrap w-full">
+         <div  className="w-full sm:w-1/2 lg:w-1/4 p-1">
+            <button
+              className="bg-gray-100 text-gray-400 border whitespace-nowrap border-gray-300 px-4 py-2 rounded cursor-not-allowed w-full"
+              disabled
+            >
+              Max Allowed...
+            </button>
           </div>
-          <div className="flex-col lg:flex-row justify-center align-items-center gap-2 w-full hidden lg:flex">
-            <span
-              onClick={() => setShow(true)}
-              style={{
-                font: "600",
-              }}
-              className="w-full rounded-md p-2 bg-white border text-[#6e3b3729] whitespace-nowrap"
+          <div  className="w-full sm:w-1/2 lg:w-1/4 p-1">
+            <button
+              className="bg-gray-100 text-gray-400 border whitespace-nowrap border-gray-300 px-4 py-2 rounded cursor-not-allowed w-full"
+              disabled
             >
-              Max Allowed Child
-            </span>
-            <span
-              onClick={() => setShow(true)}
-              style={{
-                textTransform: "uppercase",
-                font: "600",
-              }}
-              className="w-full rounded-md p-2 bg-white border text-[#6e3b3729] whitespace-nowrap"
-            >
-              Max Multiplier
-            </span>
-            <Button
-              onClick={() => setShow(true)}
-              style={{
-                background: "#C42B1E29",
-                color: "#C42B1E",
-                border: "none",
-                textTransform: "uppercase",
-                font: "600",
-              }}
-              className="w-full whitespace-nowrap"
-            >
+              Max multiple...
+            </button>
+          </div>
+          {/* Functional Buttons */}
+          <div  className="w-full sm:w-1/2 lg:w-1/4 p-1">
+            <button className="bg-red-100 text-red-600 border whitespace-nowrap border-red-400 px-4 py-2 rounded hover:bg-red-200 w-full">
               Change Parent
-            </Button>
-            <Button
-              style={{
-                background: "#C42B1E29",
-                color: "#C42B1E",
-                border: "none",
-                textTransform: "uppercase",
-                font: "600",
-              }}
-              className="w-full whitespace-nowrap"
-            >
+            </button>
+          </div>
+          <div  className="w-full sm:w-1/2 lg:w-1/4 p-1">
+            <button className="bg-red-100 text-red-600 border whitespace-nowrap border-red-400 px-4 py-2 rounded hover:bg-red-200 w-full">
               Attach Child
-            </Button>
+            </button>
+            
           </div>
+          <div  className="w-full sm:w-1/2 p-1 block lg:hidden">
+          <button className="bg-white text-red-600 border border-red-400 px-4 py-2 rounded hover:bg-red-50 w-full">
+            Refresh
+          </button>
+            
+          </div>
+         </div>
         </div>
-        <div className="flex flex-wrap items-end lg:items-center mt-2 w-full gap-3">
-          <div className="w-full sm:w-1/2">
-            <span
-              onClick={() => setShow(true)}
-              style={{
-                font: "600",
-              }}
-              className=" rounded-md p-2 bg-white border text-[#6e3b3729] whitespace-nowrap"
-            >
-              Max Allowed Child
-            </span>
-            <span
-              onClick={() => setShow(true)}
-              style={{
-                textTransform: "uppercase",
-                font: "600",
-              }}
-              className=" rounded-md p-2 bg-white border text-[#6e3b3729] whitespace-nowrap"
-            >
-              Max Multiplier
-            </span>
-            <button className="btn_light">Refresh</button>
-          </div>
-          <div className="w-full sm:w-1/2">
-            <button className="btn_dark">Refresh</button>
-            <button className="btn_dark">Refresh</button>
-          </div>
+      
+        <div className="space-x-2 hidden lg:flex">
+
+          <button className="bg-white text-red-600 border border-red-400 px-4 py-2 rounded hover:bg-red-50">
+            Refresh
+          </button>
         </div>
       </div>
+
       {/* Table Section */}
       <div className="!bg-white shadow-lg rounded-lg p-3">
         <div className="overflow-auto">
