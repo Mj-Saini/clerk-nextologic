@@ -64,7 +64,7 @@ const UserLogin = () => {
             <Route path="user-profile" element={<UserProfilePage />} />
           </Route>
           <Route path="billing" element={<Billing />} />
-          <Route path="trade-call" element={<TradeEntryTable />} />
+          {/* <Route path="trade-call" element={<TradeEntryTable />} /> */}
           <Route path="settings" element={<Settings />} />
           <Route path="detto-settings" element={<DittoSettings />} />
 

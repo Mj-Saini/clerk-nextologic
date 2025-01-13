@@ -11,13 +11,7 @@ const DropdownData = [
 
 const Billing = () => {
  
-
-
-
 const [currentData, setCurrentData] = useState([])
-
-console.log(currentData ,"00000000000000000000000000000");
-
   
   return (
     <div className="py-4">

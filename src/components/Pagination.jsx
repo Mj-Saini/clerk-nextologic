@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { NextPageIcon, PrevArrowIcon, PrevPageIcon } from "./common/Icons";
 
-const DropdownData = [{ id: 1, options: [1, 5, 10, 15, 20] }];
+const DropdownData = [{ id: 1, options: [1, 10, 25,50, 100,] }];
 
 const BillingPagination = ({ CurrentDataa }) => {
   const data = [
@@ -316,7 +316,7 @@ const BillingPagination = ({ CurrentDataa }) => {
 
   const handleItemsPerPageChange = (num, id) => {
     setSelectedItemsPerPage((prevState) => ({
-      ...prevState,
+      ...prevState,    
       [id]: num,
     }));
     setCurrentPage(1);

@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "./firebase";
+import {
+  ref,
+  set,
+  push,
+  onValue,
+  remove,
+  update,
+} from "firebase/database";
+import { realtimeDb } from "./firebase";
 
 const AddSymbol = () => {
   const [symbols, setSymbols] = useState([]);
@@ -16,13 +16,20 @@ const AddSymbol = () => {
   const [editingSymbol, setEditingSymbol] = useState(null); // To track the symbol being edited
 
   useEffect(() => {
-    const fetchSymbols = async () => {
-      const querySnapshot = await getDocs(collection(db, "symbols"));
-      const fetchedSymbols = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setSymbols(fetchedSymbols);
+    const fetchSymbols = () => {
+      const symbolsRef = ref(realtimeDb, "symbols");
+      onValue(symbolsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const fetchedSymbols = Object.entries(data).map(([id, value]) => ({
+            id,
+            ...value,
+          }));
+          setSymbols(fetchedSymbols);
+        } else {
+          setSymbols([]);
+        }
+      });
     };
 
     fetchSymbols();
@@ -35,17 +42,13 @@ const AddSymbol = () => {
     ) {
       const newSymbol = inputValue.trim();
       try {
-        // Add to Firestore
-        const docRef = await addDoc(collection(db, "symbols"), {
-          name: newSymbol,
-        });
-        console.log("Document written with ID: ", docRef.id);
-
-        // Add to local state
-        setSymbols([...symbols, { id: docRef.id, name: newSymbol }]);
+        // Add to Realtime Database
+        const symbolsRef = ref(realtimeDb, "symbols");
+        const newSymbolRef = push(symbolsRef);
+        await set(newSymbolRef, { name: newSymbol });
         setInputValue("");
       } catch (e) {
-        console.error("Error adding document: ", e);
+        console.error("Error adding symbol: ", e);
       }
     }
   };
@@ -62,14 +65,11 @@ const AddSymbol = () => {
 
   const removeSymbol = async (symbolId) => {
     try {
-      // Remove from Firestore
-      await deleteDoc(doc(db, "symbols", symbolId));
-      console.log(`Document with ID: ${symbolId} deleted successfully.`);
-
-      // Remove from local state
-      setSymbols(symbols.filter((item) => item.id !== symbolId));
+      // Remove from Realtime Database
+      const symbolRef = ref(realtimeDb, `symbols/${symbolId}`);
+      await remove(symbolRef);
     } catch (e) {
-      console.error("Error deleting document: ", e);
+      console.error("Error deleting symbol: ", e);
     }
   };
 
@@ -81,25 +81,14 @@ const AddSymbol = () => {
   const handleUpdateSymbol = async () => {
     if (inputValue.trim() && editingSymbol) {
       try {
-        // Update in Firestore
-        const symbolRef = doc(db, "symbols", editingSymbol.id);
-        await updateDoc(symbolRef, { name: inputValue.trim() });
-        console.log(
-          `Document with ID: ${editingSymbol.id} updated successfully.`
-        );
+        // Update in Realtime Database
+        const symbolRef = ref(realtimeDb, `symbols/${editingSymbol.id}`);
+        await update(symbolRef, { name: inputValue.trim() });
 
-        // Update in local state
-        setSymbols(
-          symbols.map((symbol) =>
-            symbol.id === editingSymbol.id
-              ? { ...symbol, name: inputValue.trim() }
-              : symbol
-          )
-        );
         setInputValue("");
         setEditingSymbol(null); // Reset editing state
       } catch (e) {
-        console.error("Error updating document: ", e);
+        console.error("Error updating symbol: ", e);
       }
     }
   };
@@ -108,7 +97,7 @@ const AddSymbol = () => {
     <div className="flex flex-col items-center space-y-4 sm:p-4 mt-5">
       <div className="flex flex-col sm:flex-row justify-center gap-2 w-full">
         <input
-        style={{border: '1px solid #97514b',color: "#97514b"}}
+          style={{ border: "1px solid #97514b", color: "#97514b" }}
           type="text"
           value={inputValue}
           onChange={handleInputChange}
@@ -126,25 +115,25 @@ const AddSymbol = () => {
         {symbols.map((symbol) => (
           <div
             key={symbol.id}
-            className=" w-full sm:w-1/2 md:w-1/3 sm:px-2 mt-3 h-10"
+            className="w-full sm:w-1/2 md:w-1/3 sm:px-2 mt-3 h-10"
           >
-           <div className="flex items-center justify-between bg-[#C42B1E29] gap-4 rounded px-3 py-1 text-[#C42B1E] relative group h-10 uppercase">
-           <span>{symbol.name}</span>
-            <div className="hidden group-hover:flex justify-start p-0">
-              <button
-                onClick={() => removeSymbol(symbol.id)}
-                className="ml-2 text-[#6b3e37]  flex items-center"
-              >
-                <span className="text-2xl -mt-1"> &times;</span>Remove
-              </button>
-              <button
-                onClick={() => handleEditSymbol(symbol)}
-                className="ml-2 text-[#6b3e37] text-start"
-              >
-                ✎ Edit
-              </button>
+            <div className="flex items-center justify-between bg-[#C42B1E29] gap-4 rounded px-3 py-1 text-[#C42B1E] relative group h-10 uppercase">
+              <span>{symbol.name}</span>
+              <div className="hidden group-hover:flex justify-start p-0">
+                <button
+                  onClick={() => removeSymbol(symbol.id)}
+                  className="ml-2 text-[#6b3e37] flex items-center"
+                >
+                  <span className="text-2xl -mt-1"> &times;</span>Remove
+                </button>
+                <button
+                  onClick={() => handleEditSymbol(symbol)}
+                  className="ml-2 text-[#6b3e37] text-start"
+                >
+                  ✎ Edit
+                </button>
+              </div>
             </div>
-           </div>
           </div>
         ))}
       </div>

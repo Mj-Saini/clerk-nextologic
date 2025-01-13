@@ -132,6 +132,21 @@
     border-color: #6e3b37 !important;
 }
 
+#TradeForm input:first-child{
+  border: 1px solid #a50b0000 !important;
+  height: 30px;
+  margin-top: 0;
+  font-size: 14px;
+} 
+#TradeForm select,#TradeForm input{
+  border: 1px solid #6e3b37 !important;
+  height: 30px;
+  font-size: 14px;
+} 
+
+.css-1xc3v61-indicatorContainer {
+  padding: 0 !important
+}
 @media (min-width: 320px) {
   .custom-grid {
     grid-template-columns: 100%;

@@ -34,7 +34,7 @@ const Sidebar = ({ sideMenu }) => {
                 </span>{" "}
                 DashBoard
               </Link>
-              <Link
+              {/* <Link
                 onClick={sideMenu}
                 to={"trade-call"}
                  className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
@@ -42,8 +42,8 @@ const Sidebar = ({ sideMenu }) => {
                 }`}
               >
                 <span className="mr-3"><PricePlanIcon /></span> trade call
-              </Link>
-              <Link
+              </Link> */}
+              {/* <Link
                 onClick={sideMenu}
                 to={"trade-call-form"}
                  className={`flex items-center py-2 text-gray-900 font-medium rounded-lg no-underline whitespace-nowrap capitalize px-2 ${
@@ -51,7 +51,7 @@ const Sidebar = ({ sideMenu }) => {
                 }`}
               >
                 <span className="mr-3">👤</span> trade call form
-              </Link>
+              </Link> */}
               <Link
                 onClick={sideMenu}
                 to={"add-symbol"}
