@@ -2,68 +2,23 @@
 import { Dropdown, Pagination } from "react-bootstrap";
 import { useState } from "react";
 import { NextPageIcon, PrevArrowIcon, PrevPageIcon } from "./common/Icons";
+import BillingPagination from "./Pagination";
+
+const DropdownData = [
+  { id: 1, options: [1, 5, 10, 15, 20] },
+  { id: 2, options: [1, 5, 10, 15, 20] },
+];
 
 const Billing = () => {
-  const data = [
-    {
-      planName: "Go Cliq",
-      receiptId: "Cw8L5_1732189588601",
-      startDate: "28-11-2024",
-      endDate: "25-12-2024",
-      validity: 30,
-      allowedBrokers: 7,
-      amount: 1886,
-      planValidity: "EXPIRED",
-      paymentStatus: "PURCHASED",
-      purchasedAt: "28-11-24, 09:15",
-    },
-    {
-      planName: "Go Cliq",
-      receiptId: "pfw2Eq_173218874820",
-      startDate: "17-10-2024",
-      endDate: "15-11-2024",
-      validity: 30,
-      allowedBrokers: 7,
-      amount: 1886,
-      planValidity: "EXPIRED",
-      paymentStatus: "PURCHASED",
-      purchasedAt: "17-10-24, 09:49",
-    },
-    {
-      planName: "Go Cliq",
-      receiptId: "xWbLb_1732888883879",
-      startDate: "09-09-2024",
-      endDate: "08-10-2024",
-      validity: 30,
-      allowedBrokers: 3,
-      amount: 1886,
-      planValidity: "EXPIRED",
-      paymentStatus: "PURCHASED",
-      purchasedAt: "09-09-24, 13:28",
-    },
-  ];
+ 
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
+const [currentData, setCurrentData] = useState([])
 
-  const handleItemsPerPageChange = (num) => {
-    setItemsPerPage(num);
-    setCurrentPage(1); // Reset to the first page when items per page changes
-  };
+console.log(currentData ,"00000000000000000000000000000");
 
-  const currentData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
+  
   return (
     <div className="py-4">
       <div className="mb-5 bg-white rounded-lg shadow-lg p-3">
@@ -312,87 +267,8 @@ const Billing = () => {
             </table>
           </div>
         </div>
-        {/* Pagination Controls */}
-        <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
-          <Dropdown>
-            <span
-              style={{
-                textAlign: "start",
-                color: "#6e3b37",
-                fontSize: "14px",
-              }}
-              className="me-4"
-            >
-              Items per page:
-            </span>{" "}
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              {itemsPerPage}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {[1, 5, 10, 15, 20].map((num) => (
-                <Dropdown.Item
-                  key={num}
-                  onClick={() => handleItemsPerPageChange(num)}
-                >
-                  {num}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <span
-            style={{
-              textAlign: "start",
-              color: "#6e3b37",
-              fontSize: "14px",
-            }}
-          >
-            {`${(currentPage - 1) * itemsPerPage + 1}-${Math.min(
-              currentPage * itemsPerPage,
-              data.length
-            )} of ${data.length}`}
-          </span>
-
-          <ul className="d-flex mb-0 gap-3 align-items-center">
-            <li>
-              <button
-                type="button"
-                onClick={() => handlePageChange(1)}
-                disabled={currentPage === 1}
-              >
-                <PrevPageIcon />
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                <PrevArrowIcon />
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                   className="!-scale-110"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                <PrevArrowIcon />
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => handlePageChange(totalPages)}
-                disabled={currentPage === totalPages}
-              >
-                <NextPageIcon />
-              </button>
-            </li>
-          </ul>
-        </div>
+     
+        <BillingPagination CurrentDataa={setCurrentData}/>
       </div>
 
       {/* Ditto Subscription Section */}
@@ -661,87 +537,8 @@ const Billing = () => {
             </tbody>
           </table>
         </div>
-        {/* Pagination Controls */}
-        <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
-          <Dropdown>
-            <span
-              style={{
-                textAlign: "start",
-                color: "#6e3b37",
-                fontSize: "14px",
-              }}
-              className="me-4"
-            >
-              Items per page:
-            </span>{" "}
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              {itemsPerPage}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {[1, 5, 10, 15, 20].map((num) => (
-                <Dropdown.Item
-                  key={num}
-                  onClick={() => handleItemsPerPageChange(num)}
-                >
-                  {num}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <span
-            style={{
-              textAlign: "start",
-              color: "#6e3b37",
-              fontSize: "14px",
-            }}
-          >
-            {`${(currentPage - 1) * itemsPerPage + 1}-${Math.min(
-              currentPage * itemsPerPage,
-              data.length
-            )} of ${data.length}`}
-          </span>
-
-          <ul className="d-flex mb-0 gap-3 align-items-center">
-            <li>
-              <button
-                type="button"
-                onClick={() => handlePageChange(1)}
-                disabled={currentPage === 1}
-              >
-                <PrevPageIcon />
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                <PrevArrowIcon />
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                   className="!-scale-110"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                <PrevArrowIcon />
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => handlePageChange(totalPages)}
-                disabled={currentPage === totalPages}
-              >
-                <NextPageIcon />
-              </button>
-            </li>
-          </ul>
-        </div>
+      
+        <BillingPagination />
       </div>
     </div>
   );

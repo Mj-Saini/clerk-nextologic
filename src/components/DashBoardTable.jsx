@@ -20,6 +20,19 @@ const data = [
     action: "2025-01-06 13:45",
     lastUpdate: "2025-01-06 13:45",
   },
+  {
+    id: 2,
+    broker: "male",
+    brokerId: "F123456",
+    nameTag: "Thomas Miranda",
+    AppId: "29",
+    AppKey: "New York",
+    status: "Active",
+    lastToken: "2025-01-06 13:45",
+    genratetoken: " Click to Generate Token",
+    action: "2025-01-06 13:45",
+    lastUpdate: "2025-01-06 13:45",
+  },
 ];
 
 const DashboardTable = () => {
@@ -28,6 +41,7 @@ const DashboardTable = () => {
   const [addBroker, setAddBroker] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const handlePageChange = (page) => {
@@ -35,10 +49,20 @@ const DashboardTable = () => {
       setCurrentPage(page);
     }
   };
+
+  const handleItemsPerPageChange = (num) => {
+    setItemsPerPage(num);
+    setCurrentPage(1); // Reset to the first page when items per page changes
+  };
+
+  const currentData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <div className="">
       {addBroker && (
-        <div className="fixed top-0 left-0 h-screen w-full flex justify-center items-center ">
+        <div className="fixed top-0 left-0 h-screen w-full flex justify-center items-center z-[1] ">
           <div
             onClick={() => setAddBroker(false)}
             className="fixed top-0 left-0 h-screen w-full flex justify-center items-center bg-black/50"
@@ -207,7 +231,7 @@ const DashboardTable = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((item) => (
+                    {currentData.map((item) => (
                       <tr key={item.id}>
                         <td
                           style={{
@@ -326,145 +350,85 @@ const DashboardTable = () => {
               </div>
               {/* Pagination Controls */}
               <div className="d-flex flex-col sm:flex-row justify-end items-end sm:items-center gap-3 mt-3 pb-3">
-                <Dropdown>
-                  <span
-                    style={{
-                      textAlign: "start",
-                      color: "#6e3b37",
-                      fontSize: "14px",
-                    }}
-                    className="me-4"
-                  >
-                    Items per page:
-                  </span>{" "}
-                  <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                    {itemsPerPage}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {[5, 10, 15, 20].map((num) => (
-                      <Dropdown.Item
-                        key={num}
-                        onClick={() => {
-                          setItemsPerPage(num);
-                          setCurrentPage(1);
-                        }}
-                      >
-                        {num}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-
-                <span
-                  style={{
-                    textAlign: "start",
-                    color: "#6e3b37",
-                    fontSize: "14px",
-                  }}
+          <Dropdown>
+            <span
+              style={{
+                textAlign: "start",
+                color: "#6e3b37",
+                fontSize: "14px",
+              }}
+              className="me-4"
+            >
+              Items per page:
+            </span>{" "}
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              {itemsPerPage}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {[1, 5, 10, 15, 20].map((num) => (
+                <Dropdown.Item
+                  key={num}
+                  onClick={() => handleItemsPerPageChange(num)}
                 >
-                  1-1 of 1
-                </span>
+                  {num}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
 
-                <ul className="d-flex mb-0 gap-3 align-items-center">
-                  <li
-                    className="v-pagination__first"
-                    data-test="v-pagination-first"
-                  >
-                    <button
-                      type="button"
-                      className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
-                      disabled=""
-                      aria-label="First page"
-                      aria-disabled="true"
-                    >
-                      <span className="v-btn__overlay"></span>
-                      <span className="v-btn__underlay"></span>
-                      <span
-                        className="v-btn__content opacity-30"
-                        data-no-activator=""
-                      >
-                        <PrevPageIcon />
-                      </span>
-                    </button>
-                  </li>
-                  <li
-                    className="v-pagination__prev"
-                    data-test="v-pagination-prev"
-                  >
-                    <button
-                      type="button"
-                      disabled=""
-                      aria-label="Previous page"
-                      aria-disabled="true"
-                    >
-                      <span className="opacity-30">
-                        <PrevArrowIcon />
-                      </span>
-                    </button>
-                  </li>
-                  <li
-                    className="v-pagination__next"
-                    data-test="v-pagination-next"
-                  >
-                    <button
-                      type="button"
-                      disabled=""
-                      aria-label="Next page"
-                      aria-disabled="true"
-                      className="!-scale-110"
-                    >
-                      <span className="opacity-30" data-no-activator="">
-                        <PrevArrowIcon />
-                      </span>
-                    </button>
-                  </li>
-                  <li
-                    className="v-pagination__last"
-                    data-test="v-pagination-last"
-                  >
-                    <button
-                      type="button"
-                      className="v-btn v-btn--disabled v-btn--icon v-theme--light v-btn--density-comfortable v-btn--rounded v-btn--size-default v-btn--variant-plain"
-                      disabled=""
-                      aria-label="Last page"
-                      aria-disabled="true"
-                    >
-                      <span className="v-btn__overlay"></span>
-                      <span className="v-btn__underlay"></span>
-                      <span className="opacity-30" data-no-activator="">
-                        <NextPageIcon />
-                      </span>
-                    </button>
-                  </li>
-                </ul>
-                {/* <Pagination>
-                    <Pagination.First
-                      onClick={() => handlePageChange(1)}
-                      disabled={currentPage === 1}
-                    />
-                    <Pagination.Prev
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                    />
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <Pagination.Item
-                        key={index}
-                        active={currentPage === index + 1}
-                        onClick={() => handlePageChange(index + 1)}
-                      >
-                        {index + 1}
-                      </Pagination.Item>
-                    ))}
-                    <Pagination.Next
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                    />
-                    <Pagination.Last
-                      onClick={() => handlePageChange(totalPages)}
-                      disabled={currentPage === totalPages}
-                    />
-                  </Pagination> */}
-              </div>
+          <span
+            style={{
+              textAlign: "start",
+              color: "#6e3b37",
+              fontSize: "14px",
+            }}
+          >
+            {`${(currentPage - 1) * itemsPerPage + 1}-${Math.min(
+              currentPage * itemsPerPage,
+              data.length
+            )} of ${data.length}`}
+          </span>
+
+          <ul className="d-flex mb-0 gap-3 align-items-center">
+            <li>
+              <button
+                type="button"
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+              >
+                <PrevPageIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <PrevArrowIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                   className="!-scale-110"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <PrevArrowIcon />
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                <NextPageIcon />
+              </button>
+            </li>
+          </ul>
+        </div>
             </div>
             <div className="border p-4 d-flex flex-col-reverse sm:flex-row gap-3 justify-center sm:!justify-start align-items-center justify-content-between bg-white shadow-lg mt-2 relative  rounded-lg">
               <div className="max-sm:text-center sm:text-start">
